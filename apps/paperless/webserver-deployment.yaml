@@ -33,4 +33,26 @@ spec:
           ports:
             - containerPort: 8000
           resources: {}
+          volumeMounts:
+            - mountPath: /usr/src/paperless/consume
+              name: paperless-consume
+            - mountPath: /usr/src/paperless/data
+              name: paperless-data
+            - mountPath: /usr/src/paperless/export
+              name: paperless-export
+            - mountPath: /usr/src/paperless/media
+              name: paperless-media
       restartPolicy: Always
+      volumes:
+        - name: paperless-consume
+          persistentVolumeClaim:
+            claimName: paperless-consume
+        - name: paperless-data
+          persistentVolumeClaim:
+            claimName: paperless-data
+        - name: paperless-export
+          persistentVolumeClaim:
+            claimName: paperless-export
+        - name: paperless-media
+          persistentVolumeClaim:
+            claimName: paperless-media
