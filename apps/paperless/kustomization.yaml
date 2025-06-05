@@ -4,7 +4,15 @@ namespace: paperless
 commonLabels:
   app: paperless
   app.kubernetes.io/part-of: paperless
+configMapGenerator:
+  - name: settings
+    envs:
+      - paperless.env
+generatorOptions:
+  disableNameSuffixHash: true
 resources:
   - namespace.yaml
   - redis-deployment.yaml
   - redis-service.yaml
+  - webserver-deployment.yaml
+  - webserver-service.yaml
