@@ -2,3 +2,8 @@ apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
   name: global
+spec:
+  ipAddressPools:
+    - l2-pool
+    - dns-pool
+    - ingress-pool

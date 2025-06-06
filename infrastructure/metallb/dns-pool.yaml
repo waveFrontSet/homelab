@@ -1,0 +1,11 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: dns-pool
+spec:
+  addresses:
+    - 192.168.2.252/32
+  serviceAllocation:
+    priority: 1
+    namespaces:
+      - pihole

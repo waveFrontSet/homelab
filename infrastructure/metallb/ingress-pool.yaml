@@ -1,0 +1,14 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: ingress-pool
+spec:
+  addresses:
+    - 192.168.2.251/32
+  serviceAllocation:
+    priority: 1
+    namespaces:
+      - kube-system
+    namespaceSelectors:
+      - matchLabels:
+          app.kubernetes.io/name: traefik
