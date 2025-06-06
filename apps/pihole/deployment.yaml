@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: webserver
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: webserver
+    spec:
+      containers:
+        - name: webserver
+          image: pihole/pihole:2025.06.1
+          env:
+            - name: TZ
+              value: "Europe/Berlin"
+            - name: FTLCONF_dns_listeningMode
+              value: "all"
+            - name: FTLCONF_dns_upstreams
+              value: '8.8.8.8;8.8.4.4'
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+            - containerPort: 53
+            - containerPort: 53
+              protocol: UDP
+          resources: {}
+          volumeMounts:
+            - mountPath: /etc/pihole
+              name: pvc
+      restartPolicy: Always
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: pvc
