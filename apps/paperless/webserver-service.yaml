@@ -3,11 +3,10 @@ kind: Service
 metadata:
   name: webserver
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: webserver
       port: 8000
       targetPort: 8000
-      nodePort: 30080
   selector:
     app.kubernetes.io/name: webserver
