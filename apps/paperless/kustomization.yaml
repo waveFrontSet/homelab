@@ -14,14 +14,7 @@ resources:
   - namespace.yaml
   - redis-deployment.yaml
   - redis-service.yaml
-  - consume-pv.yaml
-  - data-pv.yaml
-  - export-pv.yaml
-  - media-pv.yaml
-  - consume-pvc.yaml
-  - data-pvc.yaml
-  - export-pvc.yaml
-  - media-pvc.yaml
+  - paperless-folder.yaml
   - webserver-deployment.yaml
   - webserver-service.yaml
   - ingress.yaml

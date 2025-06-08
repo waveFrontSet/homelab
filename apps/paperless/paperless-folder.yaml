@@ -1,17 +1,17 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: paperless-export
+  name: paperless-folder
 spec:
   capacity:
-    storage: 5Gi
+    storage: 20Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /home/ubuntu/paperless/export
+    path: /home/ubuntu/paperless
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -20,3 +20,17 @@ spec:
               operator: In
               values:
                 - nuc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-folder
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: local-storage
+  volumeName: paperless-folder
