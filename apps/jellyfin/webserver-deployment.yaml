@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: webserver
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: webserver
+    spec:
+      containers:
+        - name: webserver
+          image: jellyfin/jellyfin:10.10.7
+          ports:
+            - containerPort: 8096
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: jellyfin-folder
+              subPath: config
+            - mountPath: /cache
+              name: jellyfin-folder
+              subPath: cache
+            - mountPath: /fotos
+              name: fotos
+              readOnly: true
+            - mountPath: /music
+              name: music
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: jellyfin-folder
+          persistentVolumeClaim:
+            claimName: jellyfin-folder
+        - name: fotos
+          nfs:
+            server: 192.168.2.178
+            path: /nfs/Fotos
+            readOnly: true
+        - name: music
+          nfs:
+            server: 192.168.2.178
+            path: /nfs/Musik
+            readOnly: true
