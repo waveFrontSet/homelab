@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: webserver
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: webserver
+    spec:
+      containers:
+        - name: webserver
+          image: ghcr.io/wavefrontset/scrapydweb:1.6.0-py3.13
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          resources: {}
+          volumeMounts:
+            - name: scrapydweb-settings
+              mountPath: /scrapydweb_settings_v11.py
+              subPath: scrapydweb_settings.py
+            - name: scrapyd
+              mountPath: /var/lib/scrapyd/logs
+              subPath: logs
+      restartPolicy: Always
+      volumes:
+        - name: scrapydweb-settings
+          configMap:
+            name: scrapydweb-settings
+        - name: scrapyd
+          persistentVolumeClaim:
+            claimName: scrapyd-pvc
+            readOnly: true

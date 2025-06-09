@@ -6,6 +6,16 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
+    - host: "scrapydweb.homelab"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webserver
+                port:
+                  number: 5000
     - host: "scrapyd.homelab"
       http:
         paths:

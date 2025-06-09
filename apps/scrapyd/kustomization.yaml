@@ -5,9 +5,14 @@ configMapGenerator:
   - name: scrapyd-conf
     files:
       - scrapyd.conf
+  - name: scrapydweb-settings
+    files:
+      - scrapydweb_settings.py
 resources:
   - namespace.yaml
   - scrapyd-pvc.yaml
   - api-deployment.yaml
   - api-service.yaml
+  - webserver-deployment.yaml
+  - webserver-service.yaml
   - ingress.yaml
