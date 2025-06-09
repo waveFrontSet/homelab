@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: api
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: api
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/wavefrontset/scrapyd:1.5.0-py3.13
+          args: ["-l", "-"]
+          ports:
+            - containerPort: 6800
+          resources: {}
+          volumeMounts:
+            - name: scrapyd-conf
+              mountPath: /etc/scrapyd/scrapyd.conf
+              subPath: scrapyd.conf
+            - name: scrapyd
+              mountPath: /src/eggs
+              subPath: eggs
+            - name: scrapyd
+              mountPath: /var/lib/scrapyd/logs
+              subPath: logs
+            - name: scrapyd
+              mountPath: /var/lib/scrapyd/items
+              subPath: items
+            - name: scrapyd
+              mountPath: /var/lib/scrapyd/db
+              subPath: db
+      restartPolicy: Always
+      volumes:
+        - name: scrapyd-conf
+          configMap:
+            name: scrapyd-conf
+        - name: scrapyd
+          persistentVolumeClaim:
+            claimName: scrapyd-pvc
