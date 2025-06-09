@@ -6,6 +6,7 @@ commonLabels:
   app.kubernetes.io/part-of: pihole
 resources:
   - namespace.yaml
+  - sealed-pihole-secret.yaml
   - pvc.yaml
   - deployment.yaml
   - service.yaml

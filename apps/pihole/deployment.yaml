@@ -16,6 +16,9 @@ spec:
       containers:
         - name: webserver
           image: pihole/pihole:2025.06.1
+          envFrom:
+            - secretRef:
+                name: pihole-secret
           env:
             - name: TZ
               value: "Europe/Berlin"
