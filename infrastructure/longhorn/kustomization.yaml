@@ -5,4 +5,5 @@ resources:
   - namespace.yaml
   - helmrepo.yaml
   - helmrelease.yaml
+  - nuc-disk-config.yaml
   - ingress.yaml
