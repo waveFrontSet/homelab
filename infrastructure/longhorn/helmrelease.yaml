@@ -20,3 +20,5 @@ spec:
     defaultBackupStore:
       backupTarget: "nfs://192.168.2.178:/nfs/TimeMachineBackup/longhorn"
     nfsOptions: "nfsvers=3,rsize=8192,wsize=8192"
+    persistence:
+      backupTargetName: nas
