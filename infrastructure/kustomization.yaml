@@ -5,4 +5,5 @@ resources:
   - metallb
   - traefik
   - sealed-secrets
+  - minio
   - longhorn
