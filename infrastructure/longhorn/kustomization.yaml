@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: longhorn-system
 resources:
   - namespace.yaml
+  - sealed-longhorn-minio-secret.yaml
   - helmrepo.yaml
   - helmrelease.yaml
   - nuc-disk-config.yaml
