@@ -34,3 +34,15 @@ spec:
       storage: 5Gi
   storageClassName: local-storage
   volumeName: paperless-folder
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: longhorn

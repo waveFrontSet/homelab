@@ -44,6 +44,8 @@ spec:
               subPath: export
             - mountPath: /usr/src/paperless/media
               name: paperless-media
+            - mountPath: /usr/src/paperless/new-data
+              name: paperless-data
       restartPolicy: Always
       volumes:
         - name: paperless-consume
@@ -57,3 +59,6 @@ spec:
         - name: paperless-folder
           persistentVolumeClaim:
             claimName: paperless-folder
+        - name: paperless-data
+          persistentVolumeClaim:
+            claimName: paperless-data
