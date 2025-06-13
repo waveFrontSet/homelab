@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-data-migrator
+spec:
+  containers:
+    - name: migrator
+      image: busybox:latest
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - mountPath: /source
+          name: source-volume
+        - mountPath: /destination
+          name: destination-volume
+  volumes:
+    - name: source-volume
+      persistentVolumeClaim:
+        claimName: jellyfin-folder
+    - name: destination-volume
+      persistentVolumeClaim:
+        claimName: jellyfin-data
