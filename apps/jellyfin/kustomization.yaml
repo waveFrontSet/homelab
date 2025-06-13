@@ -9,7 +9,6 @@ labels:
 resources:
   - namespace.yaml
   - jellyfin-folder.yaml
-  - data-migrator.yaml
   - webserver-deployment.yaml
   - webserver-service.yaml
   - ingress.yaml

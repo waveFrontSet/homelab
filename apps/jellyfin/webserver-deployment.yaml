@@ -36,7 +36,7 @@ spec:
       volumes:
         - name: jellyfin-folder
           persistentVolumeClaim:
-            claimName: jellyfin-folder
+            claimName: jellyfin-data
         - name: fotos
           nfs:
             server: 192.168.2.178
