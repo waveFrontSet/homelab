@@ -2,11 +2,12 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: pvc-data-migrator
+  namespace: pihole
 spec:
   containers:
     - name: migrator
       image: busybox:latest
-      command: ["sleep", "3600"]
+      command: ["cp", "-av", "/source/.", "/destination/."]
       volumeMounts:
         - mountPath: /source
           name: source-volume
@@ -15,7 +16,7 @@ spec:
   volumes:
     - name: source-volume
       persistentVolumeClaim:
-        claimName: jellyfin-folder
+        claimName: pvc
     - name: destination-volume
       persistentVolumeClaim:
-        claimName: jellyfin-data
+        claimName: pihole-data
