@@ -5,3 +5,4 @@ resources:
   - scrapyd
   - jellyfin
   - paperless
+  - ../clusters/homelab/data-migrator.yaml
