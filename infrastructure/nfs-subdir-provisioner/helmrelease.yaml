@@ -24,3 +24,9 @@ spec:
       create: true
       name: nfs
       reclaimPolicy: Retain
+    securityContext:
+      enabled: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
