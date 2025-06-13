@@ -60,10 +60,8 @@ spec:
       - existingSecret: minio-user
         existingSecretKey: secretKey
         accessKey: longhorn
-        policy: user
     buckets:
       - name: longhorn-backups
-        policy: none
         versioning: true
         purge: false
     securityContext:
@@ -72,3 +70,18 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "Always"
+    containerSecurityContext:
+      enabled: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "Always"
+    postJob:
+      podAnnotations: {}
+      annotations: {}
+      securityContext:
+        enabled: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "Always"
