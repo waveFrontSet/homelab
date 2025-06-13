@@ -37,15 +37,13 @@ spec:
             - mountPath: /usr/src/paperless/consume
               name: paperless-consume
             - mountPath: /usr/src/paperless/data
-              name: paperless-folder
+              name: paperless-data
               subPath: data
             - mountPath: /usr/src/paperless/export
-              name: paperless-folder
+              name: paperless-data
               subPath: export
             - mountPath: /usr/src/paperless/media
               name: paperless-media
-            - mountPath: /usr/src/paperless/new-data
-              name: paperless-data
       restartPolicy: Always
       volumes:
         - name: paperless-consume
@@ -56,9 +54,6 @@ spec:
           nfs:
             server: 192.168.2.178
             path: /nfs/Dokumente/paperless-media
-        - name: paperless-folder
-          persistentVolumeClaim:
-            claimName: paperless-folder
         - name: paperless-data
           persistentVolumeClaim:
             claimName: paperless-data
