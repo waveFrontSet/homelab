@@ -59,11 +59,12 @@ spec:
     users:
       - existingSecret: minio-user
         existingSecretKey: secretKey
-        accessKey: paul
+        accessKey: longhorn
         policy: user
     buckets:
       - name: longhorn-backups
         policy: none
+        versioning: true
         purge: false
     securityContext:
       enabled: true
@@ -71,5 +72,3 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
-    containerSecurityContext:
-      readOnlyRootFilesystem: false
