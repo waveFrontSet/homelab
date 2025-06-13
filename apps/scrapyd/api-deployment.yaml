@@ -43,4 +43,4 @@ spec:
             name: scrapyd-conf
         - name: scrapyd
           persistentVolumeClaim:
-            claimName: scrapyd-pvc
+            claimName: scrapyd-data

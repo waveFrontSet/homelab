@@ -36,4 +36,4 @@ spec:
             name: scrapydweb-settings
         - name: scrapyd
           persistentVolumeClaim:
-            claimName: scrapyd-pvc
+            claimName: scrapyd-data
