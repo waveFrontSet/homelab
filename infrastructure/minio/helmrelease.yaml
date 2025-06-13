@@ -56,3 +56,18 @@ spec:
       limits:
         memory: 4Gi
         cpu: 1
+    users:
+      - existingSecret: minio-user
+        existingSecretKey: secretKey
+        accessKey: paul
+        policy: user
+    buckets:
+      - name: longhorn-backups
+        policy: none
+        purge: false
+    securityContext:
+      enabled: true
+      runAsUser: 65534
+      runAsGroup: 100
+      fsGroup: 100
+      fsGroupChangePolicy: "OnRootMismatch"

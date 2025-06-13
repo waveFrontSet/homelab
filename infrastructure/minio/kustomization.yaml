@@ -4,5 +4,6 @@ namespace: minio
 resources:
   - namespace.yaml
   - sealed-minio-login-secret.yaml
+  - sealed-minio-user.yaml
   - helmrepo.yaml
   - helmrelease.yaml
