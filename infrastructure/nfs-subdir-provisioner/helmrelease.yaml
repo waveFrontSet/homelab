@@ -17,7 +17,7 @@ spec:
   values:
     nfs:
       server: 192.168.2.178
-      path: /shares/TimeMachineBackup/
+      path: /nfs/TimeMachineBackup/
       mountOptions:
         - nfsvers=3
     storageClass:
@@ -26,13 +26,13 @@ spec:
       reclaimPolicy: Retain
     securityContext:
       enabled: true
-      runAsUser: 1000
+      runAsUser: 501
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "Always"
     podSecurityContext:
       enabled: true
-      runAsUser: 1000
+      runAsUser: 501
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "Always"
