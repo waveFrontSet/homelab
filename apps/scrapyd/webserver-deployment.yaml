@@ -19,6 +19,8 @@ spec:
           env:
             - name: TZ
               value: "Europe/Berlin"
+            - name: DATA_PATH
+              value: "/var/lib/scrapydweb"
           ports:
             - containerPort: 5000
           resources: {}
@@ -29,6 +31,8 @@ spec:
             - name: scrapyd
               mountPath: /var/lib/scrapyd/logs
               subPath: logs
+            - name: scrapydweb
+              mountPath: /var/lib/scrapydweb
       restartPolicy: Always
       volumes:
         - name: scrapydweb-settings
@@ -37,3 +41,6 @@ spec:
         - name: scrapyd
           persistentVolumeClaim:
             claimName: scrapyd-data
+        - name: scrapydweb
+          persistentVolumeClaim:
+            claimName: scrapydweb-data
