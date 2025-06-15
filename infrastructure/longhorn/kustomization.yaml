@@ -6,6 +6,7 @@ resources:
   - sealed-longhorn-minio-secret.yaml
   - helmrepo.yaml
   - helmrelease.yaml
+  - daily-snapshots.yaml
   - daily-backups.yaml
   - nuc-disk-config.yaml
   - ingress.yaml
