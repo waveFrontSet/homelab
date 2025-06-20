@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: longhorn-system
 resources:
   - namespace.yaml
-  - sealed-longhorn-minio-secret.yaml
+  - longhorn-minio-secret.sops.yaml
   - helmrepo.yaml
   - helmrelease.yaml
   - daily-snapshots.yaml
