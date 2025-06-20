@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: minio
 resources:
   - namespace.yaml
-  - sealed-minio-login-secret.yaml
-  - sealed-minio-user.yaml
+  - minio-login-secret.sops.yaml
+  - minio-user.sops.yaml
   - helmrepo.yaml
   - helmrelease.yaml

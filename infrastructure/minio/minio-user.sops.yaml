@@ -1,0 +1,26 @@
+apiVersion: v1
+data:
+    accessKey: ENC[AES256_GCM,data:8hD1mFX//3g=,iv:gW5RU58amSnvZGSylnU606dOctLYldUM+zsMEZDeeS0=,tag:uCEUV4X+m9u8OCeJp3IZJQ==,type:str]
+    policy: ENC[AES256_GCM,data:CuA9d2TGbd8=,iv:GBV5rWq+3yh59faG9trAzPQbX8lbcX7d7fkyekLuH4E=,tag:mZG3wAN92+HAsnUCX5Hwkg==,type:str]
+    secretKey: ENC[AES256_GCM,data:/5PSf1cm75R+jYXPTq/4aGlwvwGOmDBw7SOzew==,iv:4Xe4YVajGk4iHMNpcUcDf5troeZxTZEFizEIk07L41c=,tag:RQI+zDQvN7otE+JNIVt8cg==,type:str]
+kind: Secret
+metadata:
+    creationTimestamp: null
+    name: minio-user
+    namespace: minio
+type: Opaque
+sops:
+    age:
+        - recipient: age1d06qu8eegt8wf8pewe8gw50jrrxt8wwzjhqhxgnl7f4myq9dzdxsdrps49
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBLbk90K0dNNHNKa05hTWxF
+            OVdRL3l2dTJ6MFVlZVJ4ckczdjdKNjlnY3l3CjFXT3RtRm5YUSttNFJJMlh4azdj
+            SDZrbGdQTVNwTy9SRnE4V1FFajBCRHMKLS0tIHBQTUV1bUhvbFFJWTIwQkZiLzVS
+            ZXd2eVI0czFsZkFHbW5Ja2dRNEsrSzgKyjh+OepyYxFVFJ+GsRg+WGp55uYS6FQH
+            VfZUPkSiyGgztEKQbag8UHMVRGpob4wjlMah1lgPapwfo6zo4xdLGQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-06-20T18:31:45Z"
+    mac: ENC[AES256_GCM,data:qZWiINvgA1owcRU3wd31AT0rYtrkaIsuiIxXKi7ukLZk1+5FOaQBvRINkGfAzHCP3MaJthSvsUMAkL/oKY/OAvGl4d2jRRq9zhigUGBhTWofdsag0POmsjy3dJ6qjgr0ChUhAvkH/ZDdquWvkgg3t3hldaDqR0SUszmGbSOBcOU=,iv:951BwV/ss7db/Js552LIqqAfiDVmQKi/yCC8rTExfBs=,tag:Hwa1pITeB2WyeuJy22G37w==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2
