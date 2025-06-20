@@ -4,7 +4,6 @@ resources:
   - calico
   - metallb
   - traefik
-  - sealed-secrets
   - nfs-subdir-provisioner
   - minio
   - longhorn
