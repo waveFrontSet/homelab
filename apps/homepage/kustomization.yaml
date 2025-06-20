@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: homepage
+labels:
+  - includeSelectors: true
+    pairs:
+      app: gethomepage
+      app.kubernetes.io/part-of: gethomepage
+resources:
+  - namespace.yaml
+  - service-account.yaml
+  - cluster-role.yaml
+  - config-map.yaml
+  - secret.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml

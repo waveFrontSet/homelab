@@ -4,6 +4,13 @@ metadata:
   name: ingress
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
+    gethomepage.dev/description: Music & Video
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: jellyfin.png
+    gethomepage.dev/name: Jellyfin
+    gethomepage.dev/app: webserver
+    gethomepage.dev/pod-selector: ""
 spec:
   rules:
     - host: "jellyfin.homelab"

@@ -4,6 +4,13 @@ metadata:
   name: ingress
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
+    gethomepage.dev/description: Web crawling
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: mdi-spider
+    gethomepage.dev/name: Scrapyd
+    gethomepage.dev/app: webserver
+    gethomepage.dev/pod-selector: ""
 spec:
   rules:
     - host: "scrapydweb.homelab"
