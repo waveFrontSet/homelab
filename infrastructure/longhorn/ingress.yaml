@@ -4,6 +4,13 @@ metadata:
   name: longhorn-ingress
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
+    gethomepage.dev/description: HA Storage
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Infrastructure
+    gethomepage.dev/icon: longhorn.png
+    gethomepage.dev/name: Longhorn
+    gethomepage.dev/app: longhorn-frontend
+    gethomepage.dev/pod-selector: ""
 spec:
   rules:
     - host: "longhorn.homelab"

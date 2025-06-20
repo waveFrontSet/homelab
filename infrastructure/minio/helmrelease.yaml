@@ -46,6 +46,12 @@ spec:
       enabled: true
       annotations:
         traefik.ingress.kubernetes.io/router.entrypoints: web
+        gethomepage.dev/description: S3 compatible storage
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Infrastructure
+        gethomepage.dev/icon: minio.png
+        gethomepage.dev/name: Minio
+        gethomepage.dev/pod-selector: ""
       path: /
       hosts:
         - console.minio.homelab
