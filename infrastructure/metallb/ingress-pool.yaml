@@ -8,7 +8,7 @@ spec:
   serviceAllocation:
     priority: 1
     namespaces:
-      - kube-system
+      - traefik
     namespaceSelectors:
       - matchLabels:
           app.kubernetes.io/name: traefik
