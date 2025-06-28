@@ -15,8 +15,6 @@ spec:
       version: v1.9.0
   interval: 5m0s
   values:
-    defaultSettings:
-      createDefaultDiskLabeledNodes: false
     defaultBackupStore:
       backupTarget: "s3://longhorn-backups@eu-west-1/"
       backupTargetCredentialSecret: longhorn-minio-secret
