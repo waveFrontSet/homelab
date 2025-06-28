@@ -1,5 +1,8 @@
 extends: default
 
+ignore: |
+  clusters/trinity-processor/flux-system/
+
 rules:
   line-length: disable
   document-start: disable
