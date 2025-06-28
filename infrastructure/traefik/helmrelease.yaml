@@ -8,11 +8,12 @@ spec:
   chart:
     spec:
       chart: traefik
+      reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
         name: traefik
-        namespace: flux-system
-      version: "v34.2.1"
+        namespace: traefik
+      version: "v34.5.0"
   values:
     deployment:
       podAnnotations:
