@@ -6,4 +6,4 @@ resources:
   - traefik
   - nfs-subdir-provisioner
   - minio
-  - longhorn
+  # - longhorn
