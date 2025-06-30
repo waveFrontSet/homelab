@@ -8,6 +8,4 @@ resources:
   - longhorn-minio-secret.sops.yaml
   - helmrepo.yaml
   - helmrelease.yaml
-  - daily-snapshots.yaml
-  - daily-backups.yaml
   - ingress.yaml
