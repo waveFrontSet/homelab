@@ -2,6 +2,7 @@ extends: default
 
 ignore: |
   clusters/trinity-processor/flux-system/
+  infrastructure/cilium/cilium.yaml
 
 rules:
   line-length: disable

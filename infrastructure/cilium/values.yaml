@@ -1,0 +1,32 @@
+kubeProxyReplacement: false
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: '/sys/fs/cgroup'
+ipam:
+  mode: kubernetes
+  operator:
+    clusterPoolIPv4PodCIDR: 10.42.0.0/16
+    clusterPoolIPv6PodCIDR: "2001:cafe:42::/56"
+ipv4:
+  enabled: true
+ipv6:
+  enabled: true
