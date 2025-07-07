@@ -4,7 +4,7 @@ metadata:
   name: ingress-pool
 spec:
   addresses:
-    - 192.168.2.254/32
+    - 192.168.2.18/32
   serviceAllocation:
     priority: 1
     namespaces:
