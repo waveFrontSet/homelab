@@ -19,19 +19,6 @@ spec:
       kubernetesIngress:
         publishedService:
           enabled: true
-    priorityClassName: "system-cluster-critical"
-    image:
-      repository: "rancher/mirrored-library-traefik"
-      tag: "3.3.6"
-    tolerations:
-      - key: "CriticalAddonsOnly"
-        operator: "Exists"
-      - key: "node-role.kubernetes.io/control-plane"
-        operator: "Exists"
-        effect: "NoSchedule"
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
-        effect: "NoSchedule"
     service:
       ipFamilyPolicy: "PreferDualStack"
       annotations:
