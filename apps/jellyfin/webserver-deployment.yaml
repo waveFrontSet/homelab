@@ -34,13 +34,10 @@ spec:
               subPath: cache
             - mountPath: /fotos
               name: fotos
-              readOnly: true
             - mountPath: /music
               name: music
-              readOnly: true
             - mountPath: /videos
               name: videos
-              readOnly: true
             - name: dri-device
               mountPath: /dev/dri
       restartPolicy: Always
@@ -52,17 +49,14 @@ spec:
           nfs:
             server: 192.168.2.178
             path: /nfs/Fotos
-            readOnly: true
         - name: music
           nfs:
             server: 192.168.2.178
             path: /nfs/Musik
-            readOnly: true
         - name: videos
           nfs:
             server: 192.168.2.178
             path: /nfs/Videos
-            readOnly: true
         - name: dri-device
           hostPath:
             path: /dev/dri
