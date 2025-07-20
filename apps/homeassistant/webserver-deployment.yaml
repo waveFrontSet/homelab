@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: webserver
     spec:
       nodeSelector:
-        kubernetes.io/hostname: nuc
+        kubernetes.io/hostname: ontos
       containers:
         - name: webserver
           image: docker.io/homeassistant/home-assistant:2025.5
@@ -67,5 +67,5 @@ spec:
             claimName: homeassistant-data
         - name: zigbee
           hostPath:
-            path: /dev/ttyUSB0
+            path: /dev/serial/by-id/usb-Silicon_Labs_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0001-if00-port0
             type: CharDevice
