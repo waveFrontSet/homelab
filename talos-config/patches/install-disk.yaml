@@ -1,0 +1,7 @@
+---
+machine:
+    install:
+        wipe: true
+        disk: /dev/nvme0n1
+        diskSelector:
+            size: '> 150GB'
