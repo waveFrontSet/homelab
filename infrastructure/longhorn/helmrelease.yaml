@@ -19,4 +19,4 @@ spec:
       backupTarget: "s3://longhorn-backups@eu-west-1/"
       backupTargetCredentialSecret: longhorn-minio-secret
     persistence:
-      defaultClassReplicaCount: 1
+      defaultClassReplicaCount: 3
