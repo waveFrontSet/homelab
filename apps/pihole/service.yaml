@@ -22,6 +22,6 @@ spec:
       protocol: UDP
       port: 53
       targetPort: 53
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
   selector:
     app.kubernetes.io/name: webserver
