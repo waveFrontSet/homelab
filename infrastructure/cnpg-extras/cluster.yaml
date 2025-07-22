@@ -10,7 +10,7 @@ spec:
     storageClass: longhorn
   backup:
     barmanObjectStore:
-      destinationPath: "s3://cnpg-backups@eu-west-1/"
+      destinationPath: "s3://cnpg-backups/"
       endpointURL: "http://minio.minio:9000"
       s3Credentials:
         accessKeyId:
