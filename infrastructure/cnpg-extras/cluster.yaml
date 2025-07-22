@@ -1,0 +1,23 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cnpg-cluster
+spec:
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 20Gi
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://cnpg-backups@eu-west-1/"
+      endpointURL: "http://minio.minio:9000"
+      s3Credentials:
+        accessKeyId:
+          name: cnpg-minio-secret
+          key: AWS_ACCESS_KEY_ID
+        secretAccessKey:
+          name: cnpg-minio-secret
+          key: AWS_SECRET_ACCESS_KEY
+    retentionPolicy: "7d"
+  superuserSecret:
+    name: cnpg-superuser-password
