@@ -72,6 +72,10 @@ spec:
         versioning: true
         policy: none
         purge: false
+      - name: cnpg-backups
+        versioning: true
+        policy: none
+        purge: false
     securityContext:
       enabled: true
       runAsUser: 501
