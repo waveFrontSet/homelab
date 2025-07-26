@@ -25,7 +25,7 @@ spec:
             - name: FTLCONF_dns_listeningMode
               value: "all"
             - name: FTLCONF_dns_upstreams
-              value: '8.8.8.8;8.8.4.4'
+              value: 'kube-dns.kube-system.svc.cluster.local'
           ports:
             - containerPort: 80
             - containerPort: 443
