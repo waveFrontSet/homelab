@@ -10,3 +10,19 @@ spec:
       targetPort: 8096
   selector:
     app.kubernetes.io/name: webserver
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dlna
+spec:
+  type: LoadBalancer
+  ports:
+    - name: dlna
+      port: 1900
+      targetPort: 1900
+    - name: webserver
+      port: 8096
+      targetPort: 8096
+  selector:
+    app.kubernetes.io/name: webserver

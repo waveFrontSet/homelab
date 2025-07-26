@@ -18,6 +18,8 @@ spec:
           image: jellyfin/jellyfin:10.10.7
           ports:
             - containerPort: 8096
+            - containerPort: 1900
+              protocol: UDP
           resources: {}
           volumeMounts:
             - mountPath: /config
