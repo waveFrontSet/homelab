@@ -32,6 +32,9 @@ spec:
             - mountPath: /music
               name: music
               readOnly: true
+            - mountPath: /videos
+              name: videos
+              readOnly: true
       restartPolicy: Always
       volumes:
         - name: jellyfin-folder
@@ -46,4 +49,9 @@ spec:
           nfs:
             server: 192.168.2.178
             path: /nfs/Musik
+            readOnly: true
+        - name: videos
+          nfs:
+            server: 192.168.2.178
+            path: /nfs/Videos
             readOnly: true
