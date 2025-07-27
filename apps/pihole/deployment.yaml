@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: webserver
-          image: pihole/pihole:2025.06.1
+          image: pihole/pihole:2025.07.1
           envFrom:
             - secretRef:
                 name: pihole-secret
