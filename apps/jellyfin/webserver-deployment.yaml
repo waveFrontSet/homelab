@@ -20,7 +20,11 @@ spec:
             - containerPort: 8096
             - containerPort: 1900
               protocol: UDP
-          resources: {}
+          resources:
+            requests:
+              gpu.intel.com/i915: 1
+            limits:
+              gpu.intel.com/i915: 1
           volumeMounts:
             - mountPath: /config
               name: jellyfin-folder
@@ -37,6 +41,8 @@ spec:
             - mountPath: /videos
               name: videos
               readOnly: true
+            - name: dri-device
+              mountPath: /dev/dri
       restartPolicy: Always
       volumes:
         - name: jellyfin-folder
@@ -57,3 +63,6 @@ spec:
             server: 192.168.2.178
             path: /nfs/Videos
             readOnly: true
+        - name: dri-device
+          hostPath:
+            path: /dev/dri
