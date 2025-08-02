@@ -26,13 +26,13 @@ spec:
       reclaimPolicy: Retain
     securityContext:
       enabled: true
-      runAsUser: 501
+      runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "Always"
     podSecurityContext:
       enabled: true
-      runAsUser: 501
+      runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "Always"
