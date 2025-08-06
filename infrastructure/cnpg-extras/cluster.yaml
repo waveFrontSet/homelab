@@ -22,3 +22,14 @@ spec:
     retentionPolicy: "7d"
   superuserSecret:
     name: cnpg-superuser-password
+  managed:
+    roles:
+      - name: scrapy
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: scrapy-db-secret
+        inRoles:
+          - pg_monitor
+          - pg_signal_backend

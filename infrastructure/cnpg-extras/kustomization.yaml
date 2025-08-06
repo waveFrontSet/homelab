@@ -3,6 +3,8 @@ kind: Kustomization
 namespace: cnpg-cluster
 resources:
   - namespace.yaml
+  - databases.yaml
+  - scrapy-db-secret.sops.yaml
   - cnpg-minio-secret.sops.yaml
   - cnpg-superuser-password.sops.yaml
   - cluster.yaml

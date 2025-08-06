@@ -1,0 +1,13 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: scrapydb
+  namespace: cnpg-cluster
+spec:
+  name: scrapydb
+  owner: scrapy
+  cluster:
+    name: cnpg-cluster
+  extensions:
+    - name: vector
+      ensure: present
