@@ -20,6 +20,25 @@ spec:
           ports:
             - containerPort: 6800
           resources: {}
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: password
+            - name: DB_DRIVERNAME
+              value: postgresql+psycopg2
+            - name: DB_HOST
+              value: cnpg-cluster-rw.cnpg-cluster.svc
+            - name: DB_PORT
+              value: '5432'
+            - name: DB_DATABASE
+              value: scrapydb
           volumeMounts:
             - name: scrapyd-conf
               mountPath: /etc/scrapyd/scrapyd.conf

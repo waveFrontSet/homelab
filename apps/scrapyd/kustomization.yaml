@@ -10,6 +10,7 @@ configMapGenerator:
       - scrapydweb_settings.py
 resources:
   - namespace.yaml
+  - db-secret.sops.yaml
   - scrapyd-pvc.yaml
   - api-deployment.yaml
   - api-service.yaml
