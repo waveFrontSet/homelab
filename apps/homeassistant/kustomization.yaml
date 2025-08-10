@@ -10,6 +10,7 @@ sortOptions:
   order: fifo
 resources:
   - namespace.yaml
+  - ha-configuration.sops.yaml
   - homeassistant-data.yaml
   - webserver-deployment.yaml
   - webserver-service.yaml

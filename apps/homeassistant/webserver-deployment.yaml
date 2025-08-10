@@ -30,6 +30,9 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: homeassistant-data
+            - mountPath: /config/configuration.yaml
+              name: ha-configuration
+              subPath: configuration.yaml
             - mountPath: /dev/ttyUSB0
               name: zigbee
           securityContext:
@@ -62,6 +65,9 @@ spec:
             periodSeconds: 5
       restartPolicy: Always
       volumes:
+        - name: ha-configuration
+          configMap:
+            name: ha-configuration
         - name: homeassistant-data
           persistentVolumeClaim:
             claimName: homeassistant-data
