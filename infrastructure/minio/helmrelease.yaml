@@ -13,7 +13,8 @@ spec:
         kind: HelmRepository
         name: minio
       version: v5.4.0
-  interval: 5m0s
+  interval: 10m
+  timeout: 10m
   values:
     nameOverride: "minio"
     fullnameOverride: "minio"
