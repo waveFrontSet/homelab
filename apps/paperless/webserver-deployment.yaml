@@ -21,19 +21,32 @@ spec:
             - secretRef:
                 name: paperless-db-secret
           image: ghcr.io/paperless-ngx/paperless-ngx:2.18.0
+          readinessProbe:
+            httpGet:
+              path: /
+              port: webserver-port
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            timeoutSeconds: 1
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /
+              port: webserver-port
+            initialDelaySeconds: 0
+            failureThreshold: 30
+            timeoutSeconds: 1
+            periodSeconds: 5
           livenessProbe:
-            exec:
-              command:
-                - curl
-                - -fsS
-                - --max-time
-                - '2'
-                - http://localhost:8000
-            failureThreshold: 5
+            httpGet:
+              path: /
+              port: webserver-port
+            failureThreshold: 3
             periodSeconds: 30
             timeoutSeconds: 10
           ports:
             - containerPort: 8000
+              name: webserver-port
           resources: {}
           volumeMounts:
             - mountPath: /usr/src/paperless/consume
