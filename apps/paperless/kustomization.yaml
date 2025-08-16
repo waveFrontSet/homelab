@@ -14,6 +14,7 @@ generatorOptions:
   disableNameSuffixHash: true
 resources:
   - namespace.yaml
+  - db-secret.sops.yaml
   - redis-deployment.yaml
   - redis-service.yaml
   - paperless-folder.yaml

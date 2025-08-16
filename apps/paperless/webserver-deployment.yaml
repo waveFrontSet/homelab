@@ -18,6 +18,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: settings
+            - secretRef:
+                name: paperless-db-secret
           image: ghcr.io/paperless-ngx/paperless-ngx:2.17.1
           livenessProbe:
             exec:
