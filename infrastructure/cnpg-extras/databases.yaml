@@ -11,3 +11,14 @@ spec:
   extensions:
     - name: vector
       ensure: present
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: paperlessdb
+  namespace: cnpg-cluster
+spec:
+  name: paperlessdb
+  owner: paperless
+  cluster:
+    name: cnpg-cluster

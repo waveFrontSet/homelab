@@ -33,3 +33,12 @@ spec:
         inRoles:
           - pg_monitor
           - pg_signal_backend
+      - name: paperless
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: paperless-db-secret
+        inRoles:
+          - pg_monitor
+          - pg_signal_backend
