@@ -32,6 +32,8 @@ spec:
             - mountPath: /cache
               name: jellyfin-folder
               subPath: cache
+            - mountPath: /audiobooks
+              name: audiobooks
             - mountPath: /fotos
               name: fotos
             - mountPath: /music
@@ -45,6 +47,9 @@ spec:
         - name: jellyfin-folder
           persistentVolumeClaim:
             claimName: jellyfin-data
+        - name: audiobooks
+          persistentVolumeClaim:
+            claimName: audiobooks-iscsi-pvc
         - name: fotos
           nfs:
             server: 192.168.2.178
