@@ -3,11 +3,13 @@ kind: RecurringJob
 metadata:
   name: daily-backups
 spec:
-  cron: "4 3 * * *"  # daily at 03:04
+  cron: "4 3 * * *"
   task: "backup"
   groups:
     - default
   retain: 7
   concurrency: 2
+  parameters:
+    full-backup-interval: "7"
   labels:
     kind: daily
