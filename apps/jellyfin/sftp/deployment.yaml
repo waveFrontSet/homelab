@@ -23,6 +23,12 @@ spec:
           volumeMounts:
             - name: audiobooks
               mountPath: /home/uploader/audiobooks
+            - name: fotos
+              mountPath: /home/uploader/fotos
+            - name: music
+              mountPath: /home/uploader/music
+            - name: videos
+              mountPath: /home/uploader/videos
             - name: ssh-keys
               mountPath: /home/uploader/.ssh/keys/id_ed25519.pub
               subPath: id_ed25519.pub
@@ -31,6 +37,18 @@ spec:
         - name: audiobooks
           persistentVolumeClaim:
             claimName: audiobooks-iscsi-pvc
+        - name: fotos
+          nfs:
+            server: 192.168.2.178
+            path: /nfs/Fotos
+        - name: music
+          nfs:
+            server: 192.168.2.178
+            path: /nfs/Musik
+        - name: videos
+          nfs:
+            server: 192.168.2.178
+            path: /nfs/Videos
         - name: ssh-keys
           secret:
             secretName: sftp-public-key
