@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sftp-server
+  labels:
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sftp-server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sftp-server
+    spec:
+      containers:
+        - name: sftp
+          image: atmoz/sftp:latest
+          ports:
+            - containerPort: 22
+              name: sftp
+          args:
+            - "uploader::1000:1000"
+          volumeMounts:
+            - name: audiobooks
+              mountPath: /home/uploader/audiobooks
+            - name: ssh-keys
+              mountPath: /home/uploader/.ssh/keys/id_ed25519.pub
+              subPath: id_ed25519.pub
+              readOnly: true
+      volumes:
+        - name: audiobooks
+          persistentVolumeClaim:
+            claimName: audiobooks-iscsi-pvc
+        - name: ssh-keys
+          secret:
+            secretName: sftp-public-key
