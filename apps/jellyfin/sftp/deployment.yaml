@@ -33,6 +33,14 @@ spec:
               mountPath: /home/uploader/.ssh/keys/id_ed25519.pub
               subPath: id_ed25519.pub
               readOnly: true
+            - name: ssh-keys
+              mountPath: /etc/ssh/ssh_host_ed25519_key
+              subPath: ssh_host_ed25519_key
+              readOnly: true
+            - name: ssh-keys
+              mountPath: /etc/ssh/ssh_host_rsa_key
+              subPath: ssh_host_rsa_key
+              readOnly: true
       volumes:
         - name: audiobooks
           persistentVolumeClaim:
@@ -51,4 +59,5 @@ spec:
             path: /nfs/Videos
         - name: ssh-keys
           secret:
-            secretName: sftp-public-key
+            secretName: sftp-keys
+            defaultMode: 0600
