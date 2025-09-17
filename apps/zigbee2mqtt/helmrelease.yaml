@@ -115,7 +115,7 @@ spec:
         gethomepage.dev/description: Zigbee Over MQTT
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Apps
-        gethomepage.dev/icon: zigbee.png
+        gethomepage.dev/icon: zigbee2mqtt.png
         gethomepage.dev/name: Z2M
         gethomepage.dev/app: zigbee2mqtt-zigbee2mqtt
         gethomepage.dev/pod-selector: ""
