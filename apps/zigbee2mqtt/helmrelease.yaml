@@ -123,9 +123,6 @@ spec:
         - host: z2m.homelab
           paths:
             - path: /
-              pathType: Prefix
-              backend:
-                service:
-                  name: webserver
-                  port:
-                    number: web
+              pathType: ImplementationSpecific
+            - path: /api
+              pathType: ImplementationSpecific
