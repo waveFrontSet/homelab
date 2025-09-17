@@ -126,3 +126,4 @@ spec:
               pathType: ImplementationSpecific
             - path: /api
               pathType: ImplementationSpecific
+      tls: []
