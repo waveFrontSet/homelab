@@ -117,7 +117,7 @@ spec:
         gethomepage.dev/group: Apps
         gethomepage.dev/icon: zigbee.png
         gethomepage.dev/name: Z2M
-        gethomepage.dev/app: webserver
+        gethomepage.dev/app: zigbee2mqtt-zigbee2mqtt
         gethomepage.dev/pod-selector: ""
       hosts:
         - host: z2m.homelab
