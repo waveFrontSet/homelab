@@ -6,4 +6,5 @@ resources:
   - jellyfin
   - paperless
   - homeassistant
+  - zigbee2mqtt
   - homepage

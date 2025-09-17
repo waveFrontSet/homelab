@@ -1,0 +1,131 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: zigbee2mqtt
+  namespace: flux-system
+spec:
+  interval: 5m
+  targetNamespace: zigbee2mqtt
+  chart:
+    spec:
+      chart: zigbee2mqtt
+      version: "1.37.1"
+      sourceRef:
+        kind: HelmRepository
+        name: zigbee2mqtt
+        namespace: flux-system
+      interval: 10m
+  values:
+    service:
+      annotations: {}
+      type: ClusterIP
+      port: 8080
+    statefulset:
+      # -- annotations for the statefulset created
+      annotations: {}
+      # -- annotations for the pod template
+      podAnnotations: {}
+      storage:
+        enabled: true
+        size: 1Gi
+        storageClassName: longhorn
+      resources:
+        requests:
+          memory: 600Mi
+          cpu: 200m
+        limits:
+          memory: 600Mi
+          cpu: 200m
+      livenessProbe:
+        failureThreshold: 5
+        httpGet:
+          path: /
+          port: web
+        initialDelaySeconds: 60
+        timeoutSeconds: 10
+        periodSeconds: 30
+    zigbee2mqtt:
+      homeassistant:
+        enabled: true
+        discovery_topic: "homeassistant"
+        status_topic: "hass/status"
+        legacy_entity_attributes: true
+        legacy_triggers: false
+      permit_join: true
+      timezone: UTC
+      external_converters: []
+      mqtt:
+        # -- Required: MQTT server URL (use mqtts:// for SSL/TLS connection)
+        server: "mqtt://localhost:1883"
+        # -- Optional: MQTT base topic for Zigbee2MQTT MQTT messages (default: zigbee2mqtt)
+        # base_topic: zigbee2mqtt
+        # -- Optional: absolute path to SSL/TLS certificate of CA used to sign server and client certificates (default: nothing)
+        # ca: '/etc/ssl/mqtt-ca.crt'
+        # -- Optional: absolute paths to SSL/TLS key and certificate for client-authentication (default: nothing)
+        # key: '/etc/ssl/mqtt-client.key'
+        # cert: '/etc/ssl/mqtt-client.crt'
+        # -- Optional: MQTT server authentication user (default: nothing)
+        # user: my_user
+        # -- Optional: MQTT server authentication password (default: nothing)
+        # password: my_password
+        # -- Optional: MQTT client ID (default: nothing)
+        # client_id: 'MY_CLIENT_ID'
+        # -- Optional: disable self-signed SSL certificates (default: true)
+        # reject_unauthorized: true
+        # -- Optional: Include device information to mqtt messages (default: false)
+        # include_device_information: true
+        # -- Optional: MQTT keepalive in seconds (default: 60)
+        # keepalive: 60
+        # -- Optional: MQTT protocol version (default: 4), set this to 5 if you
+        # use the 'retention' device specific configuration
+        # version: 4
+        # -- Optional: Disable retain for all send messages. ONLY enable if you MQTT broker doesn't
+        # support retained message (e.g. AWS IoT core, Azure IoT Hub, Google Cloud IoT core, IBM Watson IoT Platform).
+        # Enabling will break the Home Assistant integration. (default: false)
+        # force_disable_retain: false
+      serial:
+        port: tcp://192.168.2.144:6638
+        baudrate: 115200
+        adapter: zstack
+        disable_led: false
+      frontend:
+        enabled: true
+        port: 8080
+      advanced:
+        channel: 11
+        log_output:
+          - console
+        log_level: info
+        timestamp_format: "YYYY-MM-DD HH:mm:ss"
+        transmit_power: 20
+        adapter_delay: 0
+    # -- Ingress configuration. Zigbee2mqtt does use webssockets, which is not part of the Ingress standart settings.
+    # most of the popular ingresses supports them through annotations. Please check https://www.zigbee2mqtt.io/guide/installation/08_kubernetes.html
+    # for examples.
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      # -- Additional labels for the ingres
+      labels: {}
+      # -- Ingress implementation specific (potentially) for most use cases Prefix should be ok
+      pathType: Prefix
+      # Additional annotations for the ingress. ExternalDNS, and CertManager are tipically integrated here
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: web
+        gethomepage.dev/description: Zigbee Over MQTT
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Apps
+        gethomepage.dev/icon: zigbee.png
+        gethomepage.dev/name: Z2M
+        gethomepage.dev/app: webserver
+        gethomepage.dev/pod-selector: ""
+      hosts:
+        - host: z2m.homelab
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: webserver
+                  port:
+                    number: web
