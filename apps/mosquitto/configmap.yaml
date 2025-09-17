@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mosquitto-config
+data:
+  mosquitto.conf: |
+    # Do not persist data to disk.
+    persistence false
+
+    # Define the listener on the standard MQTT port.
+    listener 1883
+
+    # Allow clients to connect without username/password.
+    # IMPORTANT: Only use this in a trusted home network.
+    allow_anonymous true
