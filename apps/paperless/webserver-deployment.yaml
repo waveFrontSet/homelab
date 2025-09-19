@@ -63,12 +63,12 @@ spec:
       volumes:
         - name: paperless-consume
           nfs:
-            server: 192.168.2.178
-            path: /nfs/Dokumente/paperless-eingang
+            server: 192.168.2.146
+            path: /mnt/Personal/Dokumente/paperless-eingang
         - name: paperless-media
           nfs:
-            server: 192.168.2.178
-            path: /nfs/Dokumente/paperless-media
+            server: 192.168.2.146
+            path: /mnt/Personal/Dokumente/paperless-media
         - name: paperless-data
           persistentVolumeClaim:
             claimName: paperless-data
