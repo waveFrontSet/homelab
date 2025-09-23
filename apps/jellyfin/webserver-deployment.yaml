@@ -56,12 +56,12 @@ spec:
             path: /mnt/Personal/Fotos
         - name: music
           nfs:
-            server: 192.168.2.178
-            path: /nfs/Musik
+            server: 192.168.2.146
+            path: /mnt/Personal/Musik
         - name: videos
           nfs:
-            server: 192.168.2.178
-            path: /nfs/Videos
+            server: 192.168.2.146
+            path: /mnt/Personal/Videos
         - name: dri-device
           hostPath:
             path: /dev/dri
