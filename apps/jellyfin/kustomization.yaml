@@ -12,4 +12,3 @@ resources:
   - webserver-deployment.yaml
   - webserver-service.yaml
   - ingress.yaml
-  - sftp/
