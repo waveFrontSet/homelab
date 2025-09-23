@@ -16,8 +16,8 @@ spec:
   interval: 5m0s
   values:
     nfs:
-      server: 192.168.2.178
-      path: /nfs/ClusterBackups/
+      server: 192.168.2.146
+      path: /mnt/Personal/ClusterBackups/
     storageClass:
       create: true
       name: nfs
