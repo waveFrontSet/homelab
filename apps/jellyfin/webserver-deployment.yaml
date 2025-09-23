@@ -48,8 +48,9 @@ spec:
           persistentVolumeClaim:
             claimName: jellyfin-data
         - name: audiobooks
-          persistentVolumeClaim:
-            claimName: audiobooks-iscsi-pvc
+          nfs:
+            server: 192.168.2.146
+            path: /mnt/Personal/Audiobooks
         - name: fotos
           nfs:
             server: 192.168.2.146
