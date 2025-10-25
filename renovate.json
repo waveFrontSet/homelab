@@ -6,7 +6,16 @@
     ":assignAndReview(@waveFrontSet)"
   ],
   "kubernetes": {
-    "managerFilePatterns": ["/\\.yaml$/"]
+    "managerFilePatterns": [
+      "/\\.yaml$/"
+    ]
   },
-  "ignorePaths": ["**/flux-system/**"]
+  "flux": {
+    "managerFilePatterns": [
+      "/helmrelease\\.yaml$/"
+    ]
+  },
+  "ignorePaths": [
+    "**/flux-system/**"
+  ]
 }
