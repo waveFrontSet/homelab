@@ -21,4 +21,4 @@ spec:
       targetPort: dns-udp
   externalTrafficPolicy: Local
   selector:
-    app.kubernetes.io/name: blocky
+    app: blocky
