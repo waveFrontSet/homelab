@@ -22,3 +22,14 @@ spec:
   owner: paperless
   cluster:
     name: cnpg-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: blockydb
+  namespace: cnpg-cluster
+spec:
+  name: blockydb
+  owner: blocky
+  cluster:
+    name: cnpg-cluster

@@ -42,3 +42,12 @@ spec:
         inRoles:
           - pg_monitor
           - pg_signal_backend
+      - name: blocky
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: blocky-db-secret
+        inRoles:
+          - pg_monitor
+          - pg_signal_backend
