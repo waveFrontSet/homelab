@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blocky
+  labels:
+    app: blocky
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: blocky
+  template:
+    metadata:
+      labels:
+        app: blocky
+    spec:
+      containers:
+        - name: blocky
+          image: spx01/blocky:v0.27.0
+          env:
+            - name: PGPASSFILE
+              value: /app/.pgpassfile
+          ports:
+            - containerPort: 4000
+              name: prometheus
+            - containerPort: 53
+              name: dns-tcp
+            - containerPort: 53
+              protocol: UDP
+              name: dns-udp
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config.yml
+              subPath: config.yml
+              readOnly: true
+            - name: db-secret
+              mountPath: /app/.pgpassfile
+              subPath: pgpassword
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: blocky-config
+        - name: db-secret
+          secret:
+            secretName: db-secret

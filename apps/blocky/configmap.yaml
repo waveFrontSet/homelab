@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blocky-config
+data:
+  config.yml: |
+    upstream:
+      default:
+        - 1.1.1.1
+        - 8.8.8.8
+
+    blocking:
+      blockType: nxDomain
+      blackLists:
+        ads:
+          - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Win10Telemetry
+          - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Phishing-Angriffe
+          - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/malware
+          - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/easylist
+          - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/MS-Office-Telemetry
+      whiteLists:
+        ads:
+          - https://raw.githubusercontent.com/m0zgen/dns-hole/master/whitelist.txt
+          - https://raw.githubusercontent.com/m0zgen/dns-hole/master/vendors-wl/microsoft.txt
+          - https://raw.githubusercontent.com/m0zgen/dns-hole/master/vendors-wl/google.txt
+          - https://raw.githubusercontent.com/m0zgen/dns-hole/master/regex/common-wl.txt
+      clientGroupsBlock:
+        default:
+          - ads
+
+    caching:
+      cacheTimeNegative: 1m
+
+    filtering:
+      queryTypes:
+        - AAAA
+
+
+    # Konfiguration der lokalen Domains und Reverse-IP-Lookups zum DNS-Server unter 192.168.1.15
+    conditional:
+      fallbackUpstream: false
+      mapping:
+        blocky.homelab: 192.168.1.17
+        homelab: 192.168.1.18
+
+    ports:
+      dns: 53
+      http: 4000
+
+    bootstrapDns: 1.1.1.1
+
+    prometheus:
+      enable: true
+      path: /metrics
+
+    queryLog:
+      type: none
