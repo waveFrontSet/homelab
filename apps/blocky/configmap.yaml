@@ -15,16 +15,10 @@ data:
       blockType: nxDomain
       denylists:
         ads:
-          - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Win10Telemetry
-          - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Phishing-Angriffe
-          - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/malware
-          - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/easylist
-          - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/MS-Office-Telemetry
+          - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
       allowlists:
         ads:
-          - https://raw.githubusercontent.com/m0zgen/dns-hole/master/whitelist.txt
-          - https://raw.githubusercontent.com/m0zgen/dns-hole/master/vendors-wl/microsoft.txt
-          - https://raw.githubusercontent.com/m0zgen/dns-hole/master/vendors-wl/google.txt
+          - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
           - https://raw.githubusercontent.com/m0zgen/dns-hole/master/regex/common-wl.txt
       clientGroupsBlock:
         default:
