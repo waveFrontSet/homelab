@@ -4,21 +4,23 @@ metadata:
   name: blocky-config
 data:
   config.yml: |
-    upstream:
-      default:
-        - 1.1.1.1
-        - 8.8.8.8
+    upstreams:
+      groups:
+        default:
+          - 192.168.2.1
+          - 1.1.1.1
+          - 8.8.8.8
 
     blocking:
       blockType: nxDomain
-      blackLists:
+      denylists:
         ads:
           - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Win10Telemetry
           - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Phishing-Angriffe
           - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/malware
           - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/easylist
           - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/MS-Office-Telemetry
-      whiteLists:
+      allowlists:
         ads:
           - https://raw.githubusercontent.com/m0zgen/dns-hole/master/whitelist.txt
           - https://raw.githubusercontent.com/m0zgen/dns-hole/master/vendors-wl/microsoft.txt
@@ -54,4 +56,6 @@ data:
       path: /metrics
 
     queryLog:
-      type: none
+      type: postgresql
+      logRetentionDays: 30
+      target: postgres://cnpg-pooler-rw.cnpg-cluster.svc:5432/blockydb

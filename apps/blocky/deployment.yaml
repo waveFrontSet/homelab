@@ -17,9 +17,9 @@ spec:
       containers:
         - name: blocky
           image: spx01/blocky:v0.27.0
-          env:
-            - name: PGPASSFILE
-              value: /app/.pgpassfile
+          envFrom:
+            - secretRef:
+                name: db-secret
           ports:
             - containerPort: 4000
               name: prometheus
@@ -33,14 +33,7 @@ spec:
               mountPath: /app/config.yml
               subPath: config.yml
               readOnly: true
-            - name: db-secret
-              mountPath: /app/.pgpassfile
-              subPath: pgpassword
-              readOnly: true
       volumes:
         - name: config-volume
           configMap:
             name: blocky-config
-        - name: db-secret
-          secret:
-            secretName: db-secret
