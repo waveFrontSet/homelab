@@ -38,11 +38,11 @@ data:
         - AAAA
 
 
-    # Konfiguration der lokalen Domains und Reverse-IP-Lookups zum DNS-Server unter 192.168.1.15
-    conditional:
-      fallbackUpstream: false
+    customDNS:
+      customTTL: 1h
       mapping:
-        blocky.homelab: 192.168.1.17
+        blocky.homelab: 192.168.1.16
+        pihole.homelab: 192.168.1.17
         homelab: 192.168.1.18
 
     ports:
