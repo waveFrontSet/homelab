@@ -51,6 +51,9 @@ data:
       enable: true
       path: /metrics
 
+    redis:
+      address: redis:6379
+
     queryLog:
       type: postgresql
       logRetentionDays: 30
