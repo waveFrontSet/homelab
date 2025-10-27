@@ -38,6 +38,9 @@ data:
         pihole.homelab: 192.168.2.17
         homelab: 192.168.2.18
 
+    clientLookup:                                                                                                        │
+      upstream: 192.168.2.1
+
     ports:
       dns: 53
       http: 4000
