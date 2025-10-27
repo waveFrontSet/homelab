@@ -4,12 +4,9 @@ metadata:
   name: dns-pool
 spec:
   addresses:
-    - 192.168.2.17/32
     - 192.168.2.16/32
-    - fd87:b03b:2a6c::1eed:6fff:fe71:43a9/128
     - fd87:b03b:2a6c::1eed:6fff:fe71:43b9/128
   serviceAllocation:
     priority: 1
     namespaces:
-      - pihole
       - blocky
