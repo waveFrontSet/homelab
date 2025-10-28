@@ -19,13 +19,6 @@ data:
             - abbr: GH
               href: https://github.com/
   services.yaml: |
-    - Apps:
-        - Pihole:
-            href: http://pihole.homelab/admin
-            description: DNS & Filtering
-            icon: pi-hole.png
-            namespace: pihole
-            app: webserver
 
   widgets.yaml: |
     - kubernetes:

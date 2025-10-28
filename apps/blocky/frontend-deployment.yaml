@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blocky-ui
+  labels:
+    app: blocky-ui
+spec:
+  selector:
+    matchLabels:
+      app: blocky-ui
+  template:
+    metadata:
+      labels:
+        app: blocky-ui
+    spec:
+      containers:
+        - name: blocky-ui
+          image: gabrielduartem/blocky-ui:1.1.4
+          env:
+            - name: BLOCKY_API_URL
+              value: "http://blocky-svc:4000"
+          ports:
+            - containerPort: 3000
+              name: web

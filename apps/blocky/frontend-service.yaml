@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blocky-ui
+spec:
+  type: ClusterIP
+  ports:
+    - name: blocky-ui
+      port: 3000
+      targetPort: web
+  selector:
+    app: blocky-ui

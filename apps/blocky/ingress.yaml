@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    gethomepage.dev/description: DNS Filtering
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: blocky.png
+    gethomepage.dev/name: Blocky
+    gethomepage.dev/app: blocky-ui
+    gethomepage.dev/pod-selector: ""
+spec:
+  rules:
+    - host: "blocky.homelab"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: blocky-ui
+                port:
+                  number: 3000
