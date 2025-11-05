@@ -17,7 +17,7 @@ spec:
         kubernetes.io/hostname: ontos
       containers:
         - name: webserver
-          image: docker.io/homeassistant/home-assistant:2025.10
+          image: docker.io/homeassistant/home-assistant:2025.10.4
           ports:
             - containerPort: 8123
           resources:
@@ -30,7 +30,12 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/sh", "-c", "ln -sf /config-from-cm/configuration.yaml /config/configuration.yaml"]
+                command:
+                  [
+                    "/bin/sh",
+                    "-c",
+                    "ln -sf /config-from-cm/configuration.yaml /config/configuration.yaml",
+                  ]
           volumeMounts:
             - mountPath: /config
               name: homeassistant-data
