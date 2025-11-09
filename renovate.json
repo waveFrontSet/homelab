@@ -12,7 +12,8 @@
   },
   "flux": {
     "managerFilePatterns": [
-      "/helmrelease\\.yaml$/"
+      "/helmrelease\\.yaml$/",
+      "/helmrepo\\.yaml$/"
     ]
   },
   "ignorePaths": [
