@@ -27,7 +27,7 @@ I also use it as local DNS server for my homelab, replacing pihole.
 
 ### homeassistant
 
-[Home Assistant](https://www.home-assistant.io/) is a home automation s
+[Home Assistant](https://www.home-assistant.io/) is a home automation
 platform.
 
 ### jellyfin
