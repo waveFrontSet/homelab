@@ -20,6 +20,16 @@ details.
 Apps in my cluster were migrated via a lift-and-shift approach from systemd
 processes provisioned via ansible.
 
+### blocky
+
+[blocky](https://0xerr0r.github.io/blocky/latest/) is a DNS proxy for blocking ads.
+I also use it as local DNS server for my homelab, replacing pihole.
+
+### homeassistant
+
+[Home Assistant](https://www.home-assistant.io/) is a home automation s
+platform.
+
 ### jellyfin
 
 [Jellyfin](https://jellyfin.org/) is an opensource media server and, thus,
@@ -29,12 +39,6 @@ a replacement for the (arguably) more popular plex.
 
 [Paperless](https://docs.paperless-ngx.com/) is an opensource document
 management system.
-
-### pihole
-
-[Pihole](https://pi-hole.net/) is a network service for blocking ads.
-It also comes equipped with a simple DNS server - and that's for I mostly
-use it for.
 
 ### scrapyd
 
