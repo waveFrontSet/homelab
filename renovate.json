@@ -16,6 +16,9 @@
       "/helmrepo\\.yaml$/"
     ]
   },
+  "pre-commit": {
+    "enabled": true
+  },
   "ignorePaths": [
     "**/flux-system/**"
   ]
