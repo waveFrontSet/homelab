@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: webserver
-          image: jellyfin/jellyfin:10.11.2
+          image: jellyfin/jellyfin:10.11.3
           ports:
             - containerPort: 8096
             - containerPort: 1900
