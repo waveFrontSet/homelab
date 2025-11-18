@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: blocky
-          image: spx01/blocky:v0.28.1
+          image: spx01/blocky:v0.28.2
           envFrom:
             - secretRef:
                 name: db-secret
