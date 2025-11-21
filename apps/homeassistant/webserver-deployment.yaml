@@ -17,7 +17,7 @@ spec:
         kubernetes.io/hostname: ontos
       containers:
         - name: webserver
-          image: docker.io/homeassistant/home-assistant:2025.11.2
+          image: docker.io/homeassistant/home-assistant:2025.11.3
           ports:
             - containerPort: 8123
           resources:
