@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: traefik
         namespace: traefik
-      version: "37.3.0"
+      version: "37.4.0"
   values:
     providers:
       kubernetesIngress:
