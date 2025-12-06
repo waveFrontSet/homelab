@@ -28,7 +28,7 @@ prometheus:
         spec:
           resources:
             requests:
-              storage: 5Gi
+              storage: 15Gi
 alertmanager:
   alertmanagerSpec:
     storage:
