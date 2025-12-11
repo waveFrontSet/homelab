@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cnpg
-      version: 0.27.0
+      version: 0.26.1
   interval: 5m0s
   values:
     replicaCount: 3
