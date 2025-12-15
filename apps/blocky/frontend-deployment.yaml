@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: blocky-ui
-          image: gabrielduartem/blocky-ui:1.1.5
+          image: gabrielduartem/blocky-ui:1.1.6
           env:
             - name: BLOCKY_API_URL
               value: "http://blocky-svc:4000"
