@@ -7,6 +7,7 @@ resources:
   - service.yaml
   - configmap.yaml
   - db-secret.sops.yaml
+  - blocky-ui-secret.sops.yaml
   - frontend-deployment.yaml
   - frontend-service.yaml
   - ingress.yaml

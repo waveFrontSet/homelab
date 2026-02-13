@@ -19,6 +19,11 @@ spec:
           env:
             - name: BLOCKY_API_URL
               value: "http://blocky-svc:4000"
+            - name: QUERY_LOG_TYPE
+              value: "postgresql"
+          envFrom:
+            - secretRef:
+                name: blocky-ui-secret
           ports:
             - containerPort: 3000
               name: web
