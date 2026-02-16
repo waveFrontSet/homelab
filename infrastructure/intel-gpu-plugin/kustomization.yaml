@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: intel-gpu
 resources:
   - namespace.yaml
-  - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/gpu_plugin?ref=v0.34.1
+  - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/gpu_plugin?ref=v0.35.0
