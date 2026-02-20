@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: webserver
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: webserver
+    spec:
+      containers:
+        - name: webserver
+          image: ghcr.io/mealie-recipes/mealie:v3.11.0
+          envFrom:
+            - secretRef:
+                name: db-secret
+          env:
+            - name: ALLOW_SIGNUP
+              value: "false"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Berlin"
+            - name: BASE_URL
+              value: http://mealie.homelab
+            - name: DB_ENGINE
+              value: postgres
+            - name: POSTGRES_SERVER
+              value: cnpg-pooler-rw.cnpg-cluster.svc
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_DB
+              value: mealiedb
+          volumeMounts:
+            - mountPath: /app/data/
+              name: mealie-app-data
+          ports:
+            - containerPort: 9000
+          resources:
+            limits:
+              memory: 1Gi
+      restartPolicy: Always
+      volumes:
+        - name: mealie-app-data
+          persistentVolumeClaim:
+            claimName: mealie-app-data
