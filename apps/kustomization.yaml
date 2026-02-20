@@ -4,6 +4,7 @@ resources:
   - blocky
   - scrapyd
   - jellyfin
+  - mealie
   - paperless
   - homeassistant
   - mosquitto

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    gethomepage.dev/description: Recipes
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: mealie.png
+    gethomepage.dev/name: Mealie
+    gethomepage.dev/app: webserver
+    gethomepage.dev/pod-selector: ""
+spec:
+  rules:
+    - host: "mealie.homelab"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webserver
+                port:
+                  number: 9000

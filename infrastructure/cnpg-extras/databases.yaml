@@ -33,3 +33,14 @@ spec:
   owner: blocky
   cluster:
     name: cnpg-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: mealiedb
+  namespace: cnpg-cluster
+spec:
+  name: mealiedb
+  owner: mealie
+  cluster:
+    name: cnpg-cluster

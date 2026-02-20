@@ -9,5 +9,6 @@ resources:
   - paperless-db-secret.sops.yaml
   - cnpg-minio-secret.sops.yaml
   - cnpg-superuser-password.sops.yaml
+  - mealie-db-secret.sops.yaml
   - cluster.yaml
   - pgbouncer.yaml
