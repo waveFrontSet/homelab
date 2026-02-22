@@ -23,6 +23,8 @@ grafana:
 prometheus:
   prometheusSpec:
     retention: 15d
+    retentionSize: "12GB"
+    scrapeInterval: "60s"
     storageSpec:
       volumeClaimTemplate:
         spec:
