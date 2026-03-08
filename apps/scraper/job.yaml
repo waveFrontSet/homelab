@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: lcg-scraper
+spec:
+  # Every Monday at 3 AM
+  schedule: "0 3 * * 1"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: ghcr-pull-secret
+          containers:
+            - name: scraper
+              image: ghcr.io/wavefrontset/lcgo-offers:1.0.0
+              args: ["all"]
+              env:
+                - name: DB_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: db-secret
+                      key: username
+                - name: DB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: db-secret
+                      key: password
+                - name: DB_HOST
+                  value: cnpg-cluster-rw.cnpg-cluster.svc
+                - name: DB_PORT
+                  value: "5432"
+                - name: DB_DATABASE
+                  value: scrapydb
+          restartPolicy: OnFailure
+      backoffLimit: 3
