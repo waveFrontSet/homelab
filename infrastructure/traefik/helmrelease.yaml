@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: traefik
         namespace: traefik
-      version: "39.0.3"
+      version: "39.0.5"
   upgrade:
     crds: CreateReplace
     strategy:
