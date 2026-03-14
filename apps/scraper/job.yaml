@@ -13,7 +13,7 @@ spec:
             - name: ghcr-pull-secret
           containers:
             - name: scraper
-              image: ghcr.io/wavefrontset/lcgo-offers:1.0.0
+              image: ghcr.io/wavefrontset/lcgo-offers:1.1.0
               args: ["all"]
               env:
                 - name: DB_USERNAME
