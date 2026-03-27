@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: webserver
-          image: ghcr.io/mealie-recipes/mealie:v3.13.1
+          image: ghcr.io/mealie-recipes/mealie:v3.14.0
           envFrom:
             - secretRef:
                 name: db-secret
