@@ -14,7 +14,6 @@ spec:
           containers:
             - name: scraper
               image: ghcr.io/wavefrontset/lcgo-offers:1.2.0
-              args: ["all"]
               env:
                 - name: DB_USERNAME
                   valueFrom:
