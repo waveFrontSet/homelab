@@ -13,7 +13,14 @@ spec:
         kind: HelmRepository
         name: longhorn-repo
       version: 1.11.1
-  interval: 5m0s
+  interval: 10m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+    strategy:
+      name: RetryOnFailure
+      retryInterval: 5m
   values:
     defaultBackupStore:
       backupTarget: "s3://longhorn-backups@eu-west-1/"
