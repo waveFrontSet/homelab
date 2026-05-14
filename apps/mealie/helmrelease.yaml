@@ -15,61 +15,7 @@ spec:
         name: bjw-s
         namespace: flux-system
       interval: 10m
-  values:
-    controllers:
-      mealie:
-        type: deployment
-        strategy: Recreate
-        containers:
-          app:
-            # renovate: datasource=docker
-            image:
-              repository: ghcr.io/mealie-recipes/mealie
-              tag: v3.17.0
-            env:
-              ALLOW_SIGNUP: "false"
-              PUID: "1000"
-              PGID: "1000"
-              TZ: Europe/Berlin
-              BASE_URL: http://mealie.homelab
-              DB_ENGINE: postgres
-              POSTGRES_SERVER: cnpg-pooler-rw.cnpg-cluster.svc
-              POSTGRES_PORT: "5432"
-              POSTGRES_DB: mealiedb
-            envFrom:
-              - secretRef:
-                  name: db-secret
-            resources:
-              limits:
-                memory: 1Gi
-    service:
-      app:
-        controller: mealie
-        ports:
-          http:
-            port: 9000
-    ingress:
-      app:
-        className: traefik
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: web
-          gethomepage.dev/description: Recipes
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Apps
-          gethomepage.dev/icon: mealie.png
-          gethomepage.dev/name: Mealie
-          gethomepage.dev/app: mealie
-          gethomepage.dev/pod-selector: ""
-        hosts:
-          - host: mealie.homelab
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
-    persistence:
-      data:
-        existingClaim: mealie-app-data
-        globalMounts:
-          - path: /app/data
+  valuesFrom:
+    - kind: ConfigMap
+      name: mealie-values
+      valuesKey: values.yaml
