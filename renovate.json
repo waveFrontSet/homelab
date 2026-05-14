@@ -19,6 +19,18 @@
   "pre-commit": {
     "enabled": true
   },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Bump image tags inside HelmRelease values (bjw-s app-template)",
+      "managerFilePatterns": [
+        "/helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+)(?: versioning=(?<versioning>\\S+))?\\s+repository:\\s+(?<depName>\\S+)\\s+tag:\\s+(?<currentValue>\\S+)"
+      ]
+    }
+  ],
   "ignorePaths": [
     "**/flux-system/**"
   ]
