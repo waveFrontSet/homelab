@@ -1,0 +1,91 @@
+controllers:
+  blocky:
+    type: deployment
+    replicas: 3
+    containers:
+      app:
+        image:
+          repository: spx01/blocky
+          tag: v0.30.0
+        envFrom:
+          - secretRef:
+              name: db-secret
+        env:
+          TZ: Europe/Berlin
+  ui:
+    type: deployment
+    containers:
+      app:
+        image:
+          repository: gabrielduartem/blocky-ui
+          tag: "1.8.0"
+        env:
+          BLOCKY_API_URL: http://blocky-svc:4000
+          QUERY_LOG_TYPE: postgresql
+        envFrom:
+          - secretRef:
+              name: blocky-ui-secret
+  redis:
+    type: deployment
+    containers:
+      app:
+        image:
+          repository: redis
+          tag: "8"
+service:
+  svc:
+    controller: blocky
+    type: LoadBalancer
+    ipFamilyPolicy: PreferDualStack
+    ipFamilies:
+      - IPv4
+      - IPv6
+    externalTrafficPolicy: Local
+    ports:
+      prometheus:
+        port: 4000
+      dns-tcp:
+        port: 53
+        protocol: TCP
+      dns-udp:
+        port: 53
+        protocol: UDP
+  ui:
+    controller: ui
+    ports:
+      http:
+        port: 3000
+  redis:
+    controller: redis
+    ports:
+      redis:
+        port: 6379
+ingress:
+  ui:
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+      gethomepage.dev/description: DNS Filtering
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Apps
+      gethomepage.dev/icon: blocky.png
+      gethomepage.dev/name: Blocky
+      gethomepage.dev/app: blocky
+      gethomepage.dev/pod-selector: ""
+    hosts:
+      - host: blocky.homelab
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: ui
+              port: http
+persistence:
+  config:
+    type: configMap
+    name: blocky-config
+    advancedMounts:
+      blocky:
+        app:
+          - path: /app/config.yml
+            subPath: config.yml
+            readOnly: true

@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: blocky-config
+  namespace: blocky
 data:
   config.yml: |
     upstreams:
@@ -52,7 +53,7 @@ data:
       path: /metrics
 
     redis:
-      address: redis:6379
+      address: blocky-redis:6379
 
     queryLog:
       type: postgresql
