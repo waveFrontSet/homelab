@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - cluster-role.yaml
-  - config-map.yaml
   - helmrelease.yaml
 configMapGenerator:
   - name: homepage-values

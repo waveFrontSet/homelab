@@ -25,6 +25,41 @@ serviceAccount:
     enabled: true
 defaultPodOptions:
   automountServiceAccountToken: true
+configMaps:
+  config:
+    enabled: true
+    data:
+      kubernetes.yaml: |
+        mode: cluster
+      settings.yaml: |
+        providers:
+          longhorn:
+            url: http://longhorn.homelab
+      custom.css: ""
+      custom.js: ""
+      bookmarks.yaml: |
+        - Developer:
+            - Github:
+                - abbr: GH
+                  href: https://github.com/
+      services.yaml: ""
+      widgets.yaml: |
+        - kubernetes:
+            cluster:
+              show: true
+              cpu: true
+              memory: true
+              showLabel: true
+              label: "cluster"
+            nodes:
+              show: true
+              cpu: true
+              memory: true
+              showLabel: true
+        - search:
+            provider: duckduckgo
+            target: _blank
+      docker.yaml: ""
 service:
   app:
     controller: homepage
@@ -50,7 +85,7 @@ ingress:
 persistence:
   config:
     type: configMap
-    name: homepage
+    identifier: config
     globalMounts:
       - path: /app/config/custom.js
         subPath: custom.js
