@@ -1,0 +1,37 @@
+controllers:
+  mosquitto:
+    type: deployment
+    containers:
+      app:
+        image:
+          repository: eclipse-mosquitto
+          tag: 2.0.22
+configMaps:
+  config:
+    enabled: true
+    data:
+      mosquitto.conf: |
+        # Do not persist data to disk.
+        persistence false
+
+        # Define the listener on the standard MQTT port.
+        listener 1883
+
+        # Allow clients to connect without username/password.
+        # IMPORTANT: Only use this in a trusted home network.
+        allow_anonymous true
+service:
+  mosquitto:
+    controller: mosquitto
+    ports:
+      mqtt:
+        port: 1883
+persistence:
+  config:
+    type: configMap
+    identifier: config
+    advancedMounts:
+      mosquitto:
+        app:
+          - path: /mosquitto/config/mosquitto.conf
+            subPath: mosquitto.conf
