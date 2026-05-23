@@ -1,0 +1,110 @@
+controllers:
+  webserver:
+    type: deployment
+    strategy: Recreate
+    containers:
+      app:
+        image:
+          repository: ghcr.io/paperless-ngx/paperless-ngx
+          tag: 2.20.15
+        envFrom:
+          - configMapRef:
+              name: settings
+          - secretRef:
+              name: paperless-db-secret
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: 8000
+              failureThreshold: 3
+              periodSeconds: 30
+              timeoutSeconds: 10
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: 8000
+              initialDelaySeconds: 0
+              failureThreshold: 3
+              timeoutSeconds: 1
+              periodSeconds: 10
+          startup:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: 8000
+              initialDelaySeconds: 0
+              failureThreshold: 30
+              timeoutSeconds: 1
+              periodSeconds: 5
+  redis:
+    type: deployment
+    containers:
+      app:
+        image:
+          repository: redis
+          tag: "8"
+service:
+  webserver:
+    controller: webserver
+    ports:
+      http:
+        port: 8000
+  redis:
+    controller: redis
+    ports:
+      redis:
+        port: 6379
+ingress:
+  webserver:
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+      gethomepage.dev/description: Document Management
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Apps
+      gethomepage.dev/icon: paperless.png
+      gethomepage.dev/name: Paperless
+      gethomepage.dev/app: paperless
+      gethomepage.dev/pod-selector: ""
+    hosts:
+      - host: paperless.homelab
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: webserver
+              port: http
+persistence:
+  data:
+    existingClaim: paperless-data
+    advancedMounts:
+      webserver:
+        app:
+          - path: /usr/src/paperless/data
+            subPath: data
+          - path: /usr/src/paperless/export
+            subPath: export
+  consume:
+    type: nfs
+    server: 192.168.2.146
+    path: /mnt/Personal/Dokumente/paperless-eingang
+    advancedMounts:
+      webserver:
+        app:
+          - path: /usr/src/paperless/consume
+  media:
+    type: nfs
+    server: 192.168.2.146
+    path: /mnt/Personal/Dokumente/paperless-media
+    advancedMounts:
+      webserver:
+        app:
+          - path: /usr/src/paperless/media
