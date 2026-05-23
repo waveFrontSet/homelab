@@ -1,15 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: blocky
+configMapGenerator:
+  - name: blocky-values
+    namespace: flux-system
+    files:
+      - values.yaml
+generatorOptions:
+  disableNameSuffixHash: true
 resources:
   - namespace.yaml
-  - deployment.yaml
-  - service.yaml
-  - configmap.yaml
   - db-secret.sops.yaml
   - blocky-ui-secret.sops.yaml
-  - frontend-deployment.yaml
-  - frontend-service.yaml
-  - ingress.yaml
-  - redis-deployment.yaml
-  - redis-service.yaml
+  - helmrelease.yaml

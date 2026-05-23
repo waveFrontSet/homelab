@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: blocky
+  namespace: flux-system
+spec:
+  interval: 5m
+  releaseName: blocky
+  targetNamespace: blocky
+  chart:
+    spec:
+      chart: app-template
+      version: "5.0.1"
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      interval: 10m
+  valuesFrom:
+    - kind: ConfigMap
+      name: blocky-values
+      valuesKey: values.yaml
