@@ -5,6 +5,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
+  # Without releaseName, Flux composes <targetNamespace>-<name> = "homepage-homepage",
+  # which renames the chart's ServiceAccount and breaks the static ClusterRoleBinding.
+  releaseName: homepage
   targetNamespace: homepage
   chart:
     spec:
