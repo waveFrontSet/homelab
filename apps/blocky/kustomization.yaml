@@ -9,7 +9,6 @@ generatorOptions:
   disableNameSuffixHash: true
 resources:
   - namespace.yaml
-  - configmap.yaml
   - db-secret.sops.yaml
   - blocky-ui-secret.sops.yaml
   - helmrelease.yaml
