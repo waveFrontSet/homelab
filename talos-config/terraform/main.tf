@@ -1,3 +1,29 @@
+locals {
+  # In this cluster the control-plane VIP is the host of the cluster endpoint.
+  cluster_vip = regex("//([^:/]+)", var.cluster_endpoint)[0]
+
+  # Per-node overrides layered on top of the shared, machine-type-wide config.
+  # Kept as a named local so the dry-run dump renders the exact same patch.
+  node_patches = {
+    for k, n in var.nodes : k => yamlencode({
+      machine = {
+        install = {
+          disk  = n.install_disk
+          image = local.installer_image
+        }
+        # Hostnames come from DHCP; the provider's default HostnameConfig
+        # (auto: stable) conflicts with a static machine.network.hostname.
+        network = {
+          interfaces = [merge(
+            { interface = n.interface, dhcp = true },
+            n.machine_type == "controlplane" ? { vip = { ip = local.cluster_vip } } : {},
+          )]
+        }
+      }
+    })
+  }
+}
+
 # Render a machine config per machine_type present. Ephemeral: never in state.
 ephemeral "talos_machine_configuration" "this" {
   for_each = toset([for n in var.nodes : n.machine_type])
@@ -21,20 +47,6 @@ resource "talos_machine_configuration_apply" "this" {
   client_configuration_wo        = local.client_configuration
   machine_configuration_input_wo = ephemeral.talos_machine_configuration.this[each.value.machine_type].machine_configuration
 
-  apply_mode = var.apply_mode
-
-  # Per-node overrides layered on top of the shared config.
-  config_patches = [
-    yamlencode({
-      machine = merge(
-        {
-          install = {
-            disk  = each.value.install_disk
-            image = local.installer_image
-          }
-        },
-        each.value.hostname == null ? {} : { network = { hostname = each.value.hostname } }
-      )
-    })
-  ]
+  apply_mode     = var.apply_mode
+  config_patches = [local.node_patches[each.key]]
 }

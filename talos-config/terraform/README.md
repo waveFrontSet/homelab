@@ -49,17 +49,38 @@ terraform apply
 
 - **Upgrade Talos:** bump `talos_version` (and re-POST `bare-metal.yaml` to the
   factory if extensions changed, updating `talos_schematic_id`), then apply.
-- **Per-node disk/hardware:** set `install_disk` (and optional `hostname`) per node
-  in the `nodes` map.
+- **Per-node disk/hardware:** set `install_disk` and `interface` per node in the
+  `nodes` map. `network-config.yaml` holds only cluster-wide bits (nameservers);
+  the NIC name and the control-plane VIP are layered in per node (the VIP only on
+  `controlplane` nodes). Hostnames come from DHCP — the provider emits a default
+  `HostnameConfig` (`auto: stable`), which conflicts with a static
+  `machine.network.hostname`, so we don't set one.
 - **kubeconfig:** fetch with `talosctl kubeconfig` — intentionally not managed here
   (the `talos_cluster_kubeconfig` resource would write credentials into state).
 
 ## Notes & cautions
 
-- **First apply on the live cluster:** the rendered config should already match
-  the running nodes. Review the plan carefully; consider `apply_mode = "try"`
-  (auto-reverts if not made permanent) or `"staged"` (applies on next reboot)
-  for the first run.
+- **First apply on the live cluster:** there is nothing to import — this is a
+  push/action resource (its `Read` is a no-op, so Terraform never reads node state
+  back). An empty state means `plan` shows the resource as "to create"; applying
+  just pushes the config once, which Talos reconciles idempotently. The default
+  `apply_mode = "staged_if_needing_reboot"` means Terraform never reboots a
+  node on its own: it applies immediately if no reboot is needed, otherwise
+  stages the change for your next manual reboot. Check the `resolved_apply_mode`
+  output — if it resolved to `staged`, a reboot-requiring difference existed
+  (i.e. the rendered config doesn't yet perfectly match the running node). Valid
+  modes: `auto` (default), `reboot`, `no_reboot`, `staged`,
+  `staged_if_needing_reboot`.
+- **Talos upgrades are out-of-band.** Setting `machine.install.image` tracks the
+  intended version but does not upgrade a running node — the provider has no upgrade
+  resource. Bump `talos_version`, `apply` to record intent, then run
+  `talosctl upgrade --image …` to actually upgrade.
+- **Serial updates.** `for_each` applies to all nodes in parallel; with the
+  default staged mode that's safe (an apply never reboots). If you switch to
+  `apply_mode = reboot`/`auto`, serialize with `terraform apply -parallelism=1`
+  (or `-target` one node at a time) so you don't reboot every control-plane node
+  at once. OS version bumps are already serial — run `talosctl upgrade` node by
+  node.
 - **No bootstrap resource.** The cluster is already bootstrapped; `talos_machine_bootstrap`
   is deliberately omitted (it is a one-time operation for new clusters).
 - **install-disk.yaml is excluded** from the shared patches — the install disk

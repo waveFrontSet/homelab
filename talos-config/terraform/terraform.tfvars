@@ -6,16 +6,16 @@ nodes = {
   pneuma = {
     ip           = "192.168.2.102"
     install_disk = "/dev/nvme0n1"
-    hostname     = "pneuma"
+    interface    = "enp1s0"
   }
   ontos = {
     ip           = "192.168.2.103"
     install_disk = "/dev/nvme0n1"
-    hostname     = "ontos"
+    interface    = "enp0s31f6" # Dell NIC
   }
   logos = {
     ip           = "192.168.2.104"
     install_disk = "/dev/nvme0n1"
-    hostname     = "logos"
+    interface    = "enp0s31f6" # Dell NIC
   }
 }

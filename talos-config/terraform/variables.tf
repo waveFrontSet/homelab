@@ -25,12 +25,12 @@ variable "talos_schematic_id" {
 }
 
 variable "nodes" {
-  description = "Cluster nodes keyed by name. install_disk handles per-node hardware differences."
+  description = "Cluster nodes keyed by name. install_disk and interface handle per-node hardware differences."
   type = map(object({
     ip           = string
     install_disk = string
+    interface    = optional(string, "enp1s0")
     machine_type = optional(string, "controlplane")
-    hostname     = optional(string)
   }))
 
   validation {
@@ -52,7 +52,7 @@ variable "talosconfig_path" {
 }
 
 variable "apply_mode" {
-  description = "Apply mode: auto, reboot, no_reboot, staged, or try."
+  description = "Apply mode: auto, reboot, no_reboot, staged, or staged_if_needing_reboot. The default never reboots a node on its own — reboot-requiring changes are staged for your next manual reboot."
   type        = string
-  default     = "auto"
+  default     = "staged_if_needing_reboot"
 }
