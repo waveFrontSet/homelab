@@ -47,7 +47,7 @@ locals {
 
   # Shared patches: every patches/*.yaml except the per-node install disk.
   common_patches = [
-    for f in fileset("${path.module}/../patches", "*.yaml") :
-    file("${path.module}/../patches/${f}") if f != "install-disk.yaml"
+    for f in fileset("${path.module}/patches", "*.yaml") :
+    file("${path.module}/patches/${f}") if f != "install-disk.yaml"
   ]
 }

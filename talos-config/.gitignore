@@ -1,3 +1,10 @@
 age.key
 secrets.yaml
 rendered/
+.terraform/
+dryrun/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json

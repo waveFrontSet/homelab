@@ -42,7 +42,7 @@ variable "nodes" {
 variable "secrets_file" {
   description = "Path to the SOPS-encrypted Talos secrets bundle."
   type        = string
-  default     = "../secrets.sops.yaml"
+  default     = "secrets.sops.yaml"
 }
 
 variable "talosconfig_path" {
