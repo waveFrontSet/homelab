@@ -5,6 +5,29 @@ ephemeral "sops_file" "secrets" {
   input_type  = "yaml"
 }
 
+data "talos_image_factory_extensions_versions" "this" {
+  talos_version = var.talos_version
+  exact_filters = {
+    names = [
+      "siderolabs/i915",
+      "siderolabs/iscsi-tools",
+      "siderolabs/util-linux-tools",
+    ]
+  }
+}
+
+resource "talos_image_factory_schematic" "this" {
+  schematic = yamlencode(
+    {
+      customization = {
+        systemExtensions = {
+          officialExtensions = data.talos_image_factory_extensions_versions.this.extensions_info[*].name
+        }
+      }
+    }
+  )
+}
+
 locals {
   raw = yamldecode(ephemeral.sops_file.secrets.raw)
 
@@ -43,7 +66,7 @@ locals {
   })
 
   # Factory installer image. Bumping var.talos_version here is the tracked upgrade.
-  installer_image = "factory.talos.dev/metal-installer/${var.talos_schematic_id}:${var.talos_version}"
+  installer_image = "factory.talos.dev/metal-installer/${talos_image_factory_schematic.this.id}:${var.talos_version}"
 
   # Shared patches: every patches/*.yaml except the per-node install disk.
   common_patches = [

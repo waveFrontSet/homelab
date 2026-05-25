@@ -19,11 +19,6 @@ variable "kubernetes_version" {
   default     = null
 }
 
-variable "talos_schematic_id" {
-  description = "Image Factory schematic ID for bare-metal.yaml. Regenerate with: curl -X POST --data-binary @../bare-metal.yaml https://factory.talos.dev/schematics"
-  type        = string
-}
-
 variable "nodes" {
   description = "Cluster nodes keyed by name. install_disk and interface handle per-node hardware differences."
   type = map(object({
