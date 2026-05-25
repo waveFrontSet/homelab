@@ -56,3 +56,9 @@ variable "apply_mode" {
   type        = string
   default     = "staged_if_needing_reboot"
 }
+
+variable "dump_dir" {
+  description = "If set, terraform_data.dump writes each node's exact pre-apply config + per-node patch here so you can run `talosctl apply-config --dry-run` against the live node first. Leave null for normal applies. Render-only (cluster untouched): terraform apply -target=terraform_data.dump -var dump_dir=./dryrun"
+  type        = string
+  default     = null
+}

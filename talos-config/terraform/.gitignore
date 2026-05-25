@@ -1,4 +1,5 @@
 .terraform/
+dryrun/
 *.tfstate
 *.tfstate.*
 crash.log

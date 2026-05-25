@@ -58,6 +58,26 @@ terraform apply
 - **kubeconfig:** fetch with `talosctl kubeconfig` — intentionally not managed here
   (the `talos_cluster_kubeconfig` resource would write credentials into state).
 
+## Dry-run against a live node
+
+Terraform has no plan-time diff against a node (the apply resource's
+`Read` is a no-op), so non-reboot changes otherwise apply silently. To
+see what an apply *would* change, dump the provider's exact render and
+dry-run it with talosctl, which layers the per-node patch the same way
+the provider does:
+
+```sh
+# cluster untouched — only renders the dump files
+terraform apply -target=terraform_data.dump -var dump_dir=./dryrun
+talosctl -n <ip> apply-config --dry-run \
+  -f ./dryrun/<node>.yaml --config-patch @./dryrun/<node>.patch.yaml
+```
+
+Prefer this over `rendered/` from `talosctl gen`: the provider bundles
+its own Talos machinery (currently v1.13.0) and may emit different
+schema/defaults than your local talosctl. `dryrun/` is gitignored — the
+dumped base config holds secrets.
+
 ## Notes & cautions
 
 - **First apply on the live cluster:** there is nothing to import — this is a

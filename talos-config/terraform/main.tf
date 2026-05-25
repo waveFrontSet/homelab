@@ -50,3 +50,39 @@ resource "talos_machine_configuration_apply" "this" {
   apply_mode     = var.apply_mode
   config_patches = [local.node_patches[each.key]]
 }
+
+# Optional, off by default. When var.dump_dir is set, writes each node's exact
+# pre-apply inputs (provider-rendered base + per-node patch) to disk so you can
+# `talosctl apply-config --dry-run` against the live node BEFORE applying. The
+# secret-bearing config travels through the provisioner environment only —
+# nothing rendered here lands in state. Render-only (cluster untouched):
+#   terraform apply -target=terraform_data.dump -var dump_dir=./dryrun
+resource "terraform_data" "dump" {
+  for_each = var.dump_dir == null ? {} : var.nodes
+
+  # Re-dump when any rendering input changes (all non-secret).
+  triggers_replace = [
+    local.node_patches[each.key],
+    var.talos_version,
+    coalesce(var.kubernetes_version, "default"),
+    join("\n", local.common_patches),
+  ]
+
+  provisioner "local-exec" {
+    environment = {
+      BASE  = ephemeral.talos_machine_configuration.this[each.value.machine_type].machine_configuration
+      PATCH = local.node_patches[each.key]
+      DIR   = var.dump_dir
+      NAME  = each.key
+      IP    = each.value.ip
+    }
+    command = <<-EOT
+      set -eu
+      umask 077
+      mkdir -p "$DIR"
+      printf '%s' "$BASE"  > "$DIR/$NAME.yaml"
+      printf '%s' "$PATCH" > "$DIR/$NAME.patch.yaml"
+      echo "dry-run: talosctl -n $IP apply-config --dry-run -f $DIR/$NAME.yaml --config-patch @$DIR/$NAME.patch.yaml"
+    EOT
+  }
+}
