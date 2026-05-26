@@ -1,5 +1,5 @@
 talos_version      = "v1.12.8"
-kubernetes_version = "1.35.4"
+kubernetes_version = "1.35.5"
 
 
 nodes = {
