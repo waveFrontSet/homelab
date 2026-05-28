@@ -18,7 +18,7 @@ controllers:
       app:
         image:
           repository: gabrielduartem/blocky-ui
-          tag: "1.8.0"
+          tag: "1.8.1"
         env:
           BLOCKY_API_URL: http://blocky-svc:4000
           QUERY_LOG_TYPE: postgresql
