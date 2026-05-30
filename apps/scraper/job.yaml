@@ -13,7 +13,14 @@ spec:
             - name: ghcr-pull-secret
           containers:
             - name: scraper
-              image: ghcr.io/wavefrontset/lcgo-offers:1.2.0
+              image: ghcr.io/wavefrontset/lcgo-offers:3.0.0
+              command:
+                - /scraper
+                - scrape
+                - --spider
+                - /spiders/
+                - --pipeline
+                - /pipelines/default.yaml
               env:
                 - name: DB_USERNAME
                   valueFrom:
@@ -31,5 +38,46 @@ spec:
                   value: "5432"
                 - name: DB_DATABASE
                   value: scrapydb
+                - name: FLARESOLVERR_URL
+                  value: http://localhost:8191/v1
+                - name: TZ
+                  value: Europe/Berlin
+              volumeMounts:
+                - mountPath: /spiders
+                  name: spiders
+                - mountPath: /pipelines
+                  name: pipelines
           restartPolicy: OnFailure
+          volumes:
+            - name: spiders
+              nfs:
+                server: 192.168.2.146
+                path: /mnt/Configs/scraper/spiders
+            - name: pipelines
+              nfs:
+                server: 192.168.2.146
+                path: /mnt/Configs/scraper/pipelines
+          initContainers:
+            - name: flaresolverr
+              image: ghcr.io/flaresolverr/flaresolverr:v3.5.0
+              restartPolicy: Always
+              env:
+                - name: LOG_LEVEL
+                  value: info
+                - name: TZ
+                  value: Europe/Berlin
+              ports:
+                - containerPort: 8191
+              startupProbe:
+                tcpSocket:
+                  port: 8191
+                periodSeconds: 2
+                failureThreshold: 30
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 384Mi
+                limits:
+                  cpu: 1000m
+                  memory: 1Gi
       backoffLimit: 3
