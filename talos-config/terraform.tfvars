@@ -1,4 +1,4 @@
-talos_version      = "v1.12.8"
+talos_version      = "v1.13.3"
 kubernetes_version = "1.35.5"
 
 
