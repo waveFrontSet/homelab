@@ -12,3 +12,6 @@ resources:
   - grafana-admin-secret.sops.yaml
   - helmrepo.yaml
   - helmrelease.yaml
+  - dashboard-ah-lcg.sops.yaml
+  - datasource-scrapydb.yaml
+  - scrapy-grafana-secret.sops.yaml
