@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: cnpg-cluster-weekly
+spec:
+  schedule: "0 0 3 * * 0"
+  backupOwnerReference: self
+  cluster:
+    name: cnpg-cluster
+  method: barmanObjectStore

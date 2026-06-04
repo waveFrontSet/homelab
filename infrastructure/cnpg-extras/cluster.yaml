@@ -19,6 +19,10 @@ spec:
         secretAccessKey:
           name: cnpg-minio-secret
           key: AWS_SECRET_ACCESS_KEY
+      wal:
+        compression: gzip
+      data:
+        compression: gzip
     retentionPolicy: "7d"
   superuserSecret:
     name: cnpg-superuser-password

@@ -70,11 +70,11 @@ spec:
         policy: readwrite
     buckets:
       - name: longhorn-backups
-        versioning: true
+        versioning: false
         policy: none
         purge: false
       - name: cnpg-backups
-        versioning: true
+        versioning: false
         policy: none
         purge: false
     securityContext:
