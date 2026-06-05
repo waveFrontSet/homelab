@@ -7,6 +7,12 @@ controllers:
         image:
           repository: ghcr.io/paperless-ngx/paperless-ngx
           tag: 2.20.15
+        resources:
+          requests:
+            cpu: 100m
+            memory: 768Mi
+          limits:
+            memory: 1Gi
         envFrom:
           - configMapRef:
               name: settings
@@ -52,6 +58,12 @@ controllers:
         image:
           repository: redis
           tag: "8"
+        resources:
+          requests:
+            cpu: 10m
+            memory: 16Mi
+          limits:
+            memory: 48Mi
         probes:
           liveness:
             enabled: true
