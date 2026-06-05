@@ -52,6 +52,29 @@ controllers:
         image:
           repository: redis
           tag: "8"
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              exec:
+                command:
+                  - redis-cli
+                  - ping
+              failureThreshold: 3
+              periodSeconds: 30
+              timeoutSeconds: 5
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              exec:
+                command:
+                  - redis-cli
+                  - ping
+              failureThreshold: 3
+              periodSeconds: 10
+              timeoutSeconds: 3
 service:
   webserver:
     controller: webserver
