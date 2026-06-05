@@ -12,6 +12,37 @@ controllers:
               name: db-secret
         env:
           TZ: Europe/Berlin
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/blocking/status
+                port: 4000
+              failureThreshold: 3
+              periodSeconds: 30
+              timeoutSeconds: 10
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/blocking/status
+                port: 4000
+              failureThreshold: 3
+              periodSeconds: 10
+              timeoutSeconds: 1
+          startup:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/blocking/status
+                port: 4000
+              failureThreshold: 30
+              periodSeconds: 5
+              timeoutSeconds: 1
   ui:
     type: deployment
     containers:
@@ -25,6 +56,27 @@ controllers:
         envFrom:
           - secretRef:
               name: blocky-ui-secret
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: 3000
+              failureThreshold: 3
+              periodSeconds: 30
+              timeoutSeconds: 10
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: 3000
+              failureThreshold: 3
+              periodSeconds: 10
+              timeoutSeconds: 1
   redis:
     type: deployment
     containers:
@@ -32,6 +84,29 @@ controllers:
         image:
           repository: redis
           tag: "8"
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              exec:
+                command:
+                  - redis-cli
+                  - ping
+              failureThreshold: 3
+              periodSeconds: 30
+              timeoutSeconds: 5
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              exec:
+                command:
+                  - redis-cli
+                  - ping
+              failureThreshold: 3
+              periodSeconds: 10
+              timeoutSeconds: 3
 configMaps:
   config:
     enabled: true
