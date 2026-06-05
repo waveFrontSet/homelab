@@ -12,6 +12,37 @@ controllers:
             gpu.intel.com/i915: 1
           limits:
             gpu.intel.com/i915: 1
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /health
+                port: 8096
+              failureThreshold: 3
+              periodSeconds: 30
+              timeoutSeconds: 10
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /health
+                port: 8096
+              failureThreshold: 3
+              periodSeconds: 10
+              timeoutSeconds: 3
+          startup:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /health
+                port: 8096
+              failureThreshold: 60
+              periodSeconds: 5
+              timeoutSeconds: 3
 service:
   webserver:
     controller: webserver
