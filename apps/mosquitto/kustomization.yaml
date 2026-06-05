@@ -7,6 +7,8 @@ configMapGenerator:
       - values.yaml
 generatorOptions:
   disableNameSuffixHash: true
+  labels:
+    reconcile.fluxcd.io/watch: Enabled
 resources:
   - namespace.yaml
   - helmrelease.yaml
