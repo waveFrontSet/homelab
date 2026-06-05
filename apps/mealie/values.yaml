@@ -7,6 +7,12 @@ controllers:
         image:
           repository: ghcr.io/mealie-recipes/mealie
           tag: v3.19.2
+        resources:
+          requests:
+            cpu: 20m
+            memory: 384Mi
+          limits:
+            memory: 512Mi
         env:
           ALLOW_SIGNUP: "false"
           PUID: "1000"
@@ -20,9 +26,6 @@ controllers:
         envFrom:
           - secretRef:
               name: db-secret
-        resources:
-          limits:
-            memory: 1Gi
         probes:
           liveness:
             enabled: true
