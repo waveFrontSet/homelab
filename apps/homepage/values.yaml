@@ -11,6 +11,12 @@ controllers:
         image:
           repository: ghcr.io/gethomepage/homepage
           tag: v1.13.1
+        resources:
+          requests:
+            cpu: 5m
+            memory: 128Mi
+          limits:
+            memory: 192Mi
         env:
           # MY_POD_IP must precede HOMEPAGE_ALLOWED_HOSTS so the $() ref resolves.
           # The pod IP entry is required by homepage for in-cluster health checks.
