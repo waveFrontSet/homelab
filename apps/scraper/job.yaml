@@ -14,6 +14,13 @@ spec:
           containers:
             - name: scraper
               image: ghcr.io/wavefrontset/lcgo-offers:3.0.0
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 64Mi
+                limits:
+                  cpu: 10m
+                  memory: 128Mi
               command:
                 - /scraper
                 - scrape
