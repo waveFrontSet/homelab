@@ -7,6 +7,12 @@ controllers:
         image:
           repository: spx01/blocky
           tag: v0.31.0
+        resources:
+          requests:
+            cpu: 20m
+            memory: 75Mi
+          limits:
+            memory: 128Mi
         envFrom:
           - secretRef:
               name: db-secret
@@ -50,6 +56,12 @@ controllers:
         image:
           repository: gabrielduartem/blocky-ui
           tag: "1.8.1"
+        resources:
+          requests:
+            cpu: 1m
+            memory: 100Mi
+          limits:
+            memory: 128Mi
         env:
           BLOCKY_API_URL: http://blocky-svc:4000
           QUERY_LOG_TYPE: postgresql
@@ -84,6 +96,12 @@ controllers:
         image:
           repository: redis
           tag: "8"
+        resources:
+          requests:
+            cpu: 10m
+            memory: 16Mi
+          limits:
+            memory: 48Mi
         probes:
           liveness:
             enabled: true
