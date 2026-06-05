@@ -6,6 +6,12 @@ controllers:
         image:
           repository: eclipse-mosquitto
           tag: 2.0.22
+        resources:
+          requests:
+            cpu: 1m
+            memory: 8Mi
+          limits:
+            memory: 16Mi
         probes:
           liveness:
             enabled: true

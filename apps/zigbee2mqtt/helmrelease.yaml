@@ -31,8 +31,8 @@ spec:
         storageClassName: longhorn
       resources:
         requests:
-          memory: 600Mi
-          cpu: 200m
+          memory: 256Mi
+          cpu: 20m
         limits:
           memory: 600Mi
           cpu: 200m
