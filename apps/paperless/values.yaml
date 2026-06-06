@@ -110,14 +110,14 @@ ingress:
       gethomepage.dev/app: paperless
       gethomepage.dev/pod-selector: ""
     hosts:
-      - host: paperless.homelab
+      - host: paperless.${EXTERNAL_DOMAIN}
         paths:
           - path: /
             pathType: Prefix
             service:
               identifier: webserver
               port: http
-      - host: paperless.${EXTERNAL_DOMAIN}
+      - host: paperless.homelab
         paths:
           - path: /
             pathType: Prefix

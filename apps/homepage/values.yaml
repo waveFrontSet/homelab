@@ -113,6 +113,13 @@ ingress:
       gethomepage.dev/icon: homepage.png
       gethomepage.dev/name: Homepage
     hosts:
+      - host: ${EXTERNAL_DOMAIN}
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: app
+              port: http
       - host: home.homelab
         paths:
           - path: /
@@ -121,13 +128,6 @@ ingress:
               identifier: app
               port: http
       - host: home.${EXTERNAL_DOMAIN}
-        paths:
-          - path: /
-            pathType: Prefix
-            service:
-              identifier: app
-              port: http
-      - host: ${EXTERNAL_DOMAIN}
         paths:
           - path: /
             pathType: Prefix

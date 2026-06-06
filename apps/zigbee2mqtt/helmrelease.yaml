@@ -119,13 +119,13 @@ spec:
         gethomepage.dev/app: zigbee2mqtt-zigbee2mqtt
         gethomepage.dev/pod-selector: ""
       hosts:
-        - host: z2m.homelab
+        - host: z2m.${EXTERNAL_DOMAIN}
           paths:
             - path: /
               pathType: ImplementationSpecific
             - path: /api
               pathType: ImplementationSpecific
-        - host: z2m.${EXTERNAL_DOMAIN}
+        - host: z2m.homelab
           paths:
             - path: /
               pathType: ImplementationSpecific

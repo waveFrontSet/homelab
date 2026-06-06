@@ -29,7 +29,7 @@ spec:
       defaultClassReplicaCount: 3
     ingress:
       enabled: true
-      host: longhorn.homelab
+      host: longhorn.${EXTERNAL_DOMAIN}
       ingressClassName: traefik
       annotations:
         gethomepage.dev/description: HA Storage

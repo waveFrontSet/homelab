@@ -44,7 +44,15 @@ spec:
     ingressRoute:
       dashboard:
         enabled: true
-        matchRule: Host(`traefik.homelab`) || Host(`traefik.${EXTERNAL_DOMAIN}`)
+        annotations:
+          gethomepage.dev/description: Traefik Dashboard
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Infrastructure
+          gethomepage.dev/icon: traefik.png
+          gethomepage.dev/name: Traefik
+          gethomepage.dev/app: traefik
+          gethomepage.dev/pod-selector: ""
+        matchRule: Host(`traefik.${EXTERNAL_DOMAIN}`) || Host(`traefik.homelab`)
         entryPoints:
           - websecure
         tls: {}

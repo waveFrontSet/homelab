@@ -42,8 +42,8 @@ spec:
       annotations: {}
       path: /
       hosts:
-        - minio.homelab
         - minio.${EXTERNAL_DOMAIN}
+        - minio.homelab
     consoleIngress:
       enabled: true
       ingressClassName: traefik
@@ -56,8 +56,8 @@ spec:
         gethomepage.dev/pod-selector: ""
       path: /
       hosts:
-        - console.minio.homelab
         - console.minio.${EXTERNAL_DOMAIN}
+        - console.minio.homelab
     resources:
       requests:
         memory: 2Gi

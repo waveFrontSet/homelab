@@ -18,8 +18,8 @@ grafana:
       gethomepage.dev/app: grafana
       gethomepage.dev/pod-selector: ""
     hosts:
-      - grafana.homelab
       - grafana.${EXTERNAL_DOMAIN}
+      - grafana.homelab
     path: /
 prometheus:
   prometheusSpec:

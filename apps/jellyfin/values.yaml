@@ -72,14 +72,14 @@ ingress:
       gethomepage.dev/app: webserver
       gethomepage.dev/pod-selector: ""
     hosts:
-      - host: jellyfin.homelab
+      - host: jellyfin.${EXTERNAL_DOMAIN}
         paths:
           - path: /
             pathType: Prefix
             service:
               identifier: webserver
               port: http
-      - host: jellyfin.${EXTERNAL_DOMAIN}
+      - host: jellyfin.homelab
         paths:
           - path: /
             pathType: Prefix
