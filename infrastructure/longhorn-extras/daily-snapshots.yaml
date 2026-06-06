@@ -7,7 +7,7 @@ spec:
   task: "snapshot"
   groups:
     - default
-  retain: 7
+  retain: 5
   concurrency: 2
   labels:
     kind: daily

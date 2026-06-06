@@ -92,8 +92,10 @@ persistence:
     globalMounts:
       - path: /config
         subPath: config
+  cache:
+    type: emptyDir
+    globalMounts:
       - path: /cache
-        subPath: cache
   audiobooks:
     type: nfs
     server: 192.168.2.146
