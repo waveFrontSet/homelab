@@ -31,6 +31,10 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cluster-vars
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -116,6 +120,10 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cluster-vars
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -175,12 +183,63 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: cert-manager
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cert-manager
+  prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: cert-manager
+      namespace: cert-manager
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cert-manager-extras
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cert-manager
+  interval: 10m0s
+  retryInterval: 1m
+  timeout: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cert-manager-extras
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cluster-vars
+  healthChecks:
+    - apiVersion: cert-manager.io/v1
+      kind: Certificate
+      name: wildcard-external
+      namespace: traefik
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: traefik
   namespace: flux-system
 spec:
   dependsOn:
     - name: metallb
     - name: cilium
+    - name: cert-manager-extras
   interval: 10m0s
   retryInterval: 1m
   timeout: 5m
@@ -189,6 +248,10 @@ spec:
     name: flux-system
   path: ./infrastructure/traefik
   prune: true
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cluster-vars
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -210,6 +273,10 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cluster-vars
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

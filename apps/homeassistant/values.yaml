@@ -70,8 +70,8 @@ service:
         port: 8123
 ingress:
   webserver:
+    className: traefik
     annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: web
       gethomepage.dev/description: Home automation
       gethomepage.dev/enabled: "true"
       gethomepage.dev/group: Apps
@@ -81,6 +81,13 @@ ingress:
       gethomepage.dev/pod-selector: ""
     hosts:
       - host: homeassistant.homelab
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: webserver
+              port: http
+      - host: homeassistant.${EXTERNAL_DOMAIN}
         paths:
           - path: /
             pathType: Prefix

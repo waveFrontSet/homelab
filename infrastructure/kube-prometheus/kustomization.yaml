@@ -15,3 +15,16 @@ resources:
   - dashboard-ah-lcg.sops.yaml
   - datasource-scrapydb.yaml
   - scrapy-grafana-secret.sops.yaml
+patches:
+  # Grafana dashboard JSON contains ${var} template tokens that collide with
+  # Flux postBuild envsubst. Opt this ConfigMap out of substitution.
+  - target:
+      kind: ConfigMap
+      name: grafana-dashboard-ah-lcg-price-tracker
+    patch: |
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: grafana-dashboard-ah-lcg-price-tracker
+        annotations:
+          kustomize.toolkit.fluxcd.io/substitute: disabled

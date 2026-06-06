@@ -163,6 +163,7 @@ configMaps:
           customTTL: 1h
           mapping:
             homelab: 192.168.2.18
+            ${EXTERNAL_DOMAIN}: 192.168.2.18
 
         clientLookup:
           upstream: 192.168.2.1
@@ -214,8 +215,8 @@ service:
         port: 6379
 ingress:
   ui:
+    className: traefik
     annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: web
       gethomepage.dev/description: DNS Filtering
       gethomepage.dev/enabled: "true"
       gethomepage.dev/group: Apps
@@ -225,6 +226,13 @@ ingress:
       gethomepage.dev/pod-selector: ""
     hosts:
       - host: blocky.homelab
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: ui
+              port: http
+      - host: blocky.${EXTERNAL_DOMAIN}
         paths:
           - path: /
             pathType: Prefix

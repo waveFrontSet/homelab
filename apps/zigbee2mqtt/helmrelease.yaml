@@ -111,7 +111,6 @@ spec:
       pathType: Prefix
       # Additional annotations for the ingress. ExternalDNS, and CertManager are tipically integrated here
       annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: web
         gethomepage.dev/description: Zigbee Over MQTT
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Apps
@@ -121,6 +120,12 @@ spec:
         gethomepage.dev/pod-selector: ""
       hosts:
         - host: z2m.homelab
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+            - path: /api
+              pathType: ImplementationSpecific
+        - host: z2m.${EXTERNAL_DOMAIN}
           paths:
             - path: /
               pathType: ImplementationSpecific

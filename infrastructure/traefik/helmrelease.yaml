@@ -14,6 +14,8 @@ spec:
         name: traefik
         namespace: traefik
       version: "40.2.0"
+  install:
+    crds: CreateReplace
   upgrade:
     crds: CreateReplace
     strategy:
@@ -24,13 +26,32 @@ spec:
       kubernetesIngress:
         publishedService:
           enabled: true
+    additionalArguments:
+      - --entrypoints.websecure.http.middlewares=traefik-lan-only@kubernetescrd
+    ports:
+      web:
+        http:
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              priority: 10
+              permanent: true
+    tlsStore:
+      default:
+        defaultCertificate:
+          secretName: wildcard-external-tls
     ingressRoute:
       dashboard:
         enabled: true
-        matchRule: Host(`traefik.homelab`)
+        matchRule: Host(`traefik.homelab`) || Host(`traefik.${EXTERNAL_DOMAIN}`)
         entryPoints:
-          - web
+          - websecure
+        tls: {}
     service:
-      ipFamilyPolicy: "PreferDualStack"
       annotations:
         metallb.io/address-pool: ingress-pool
+      spec:
+        type: LoadBalancer
+        ipFamilyPolicy: PreferDualStack
+        externalTrafficPolicy: Local

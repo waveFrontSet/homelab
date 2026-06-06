@@ -5,3 +5,4 @@ resources:
   - namespace.yaml
   - helmrelease.yaml
   - helmrepo.yaml
+  - middleware-lan-only.yaml

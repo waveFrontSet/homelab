@@ -32,7 +32,6 @@ spec:
       host: longhorn.homelab
       ingressClassName: traefik
       annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: web
         gethomepage.dev/description: HA Storage
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Infrastructure

@@ -67,7 +67,6 @@ ingress:
   app:
     className: traefik
     annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: web
       gethomepage.dev/description: Recipes
       gethomepage.dev/enabled: "true"
       gethomepage.dev/group: Apps
@@ -77,6 +76,13 @@ ingress:
       gethomepage.dev/pod-selector: ""
     hosts:
       - host: mealie.homelab
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: app
+              port: http
+      - host: mealie.${EXTERNAL_DOMAIN}
         paths:
           - path: /
             pathType: Prefix

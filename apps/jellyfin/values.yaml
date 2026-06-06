@@ -62,8 +62,8 @@ service:
         port: 8096
 ingress:
   webserver:
+    className: traefik
     annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: web
       gethomepage.dev/description: Music & Video
       gethomepage.dev/enabled: "true"
       gethomepage.dev/group: Apps
@@ -73,6 +73,13 @@ ingress:
       gethomepage.dev/pod-selector: ""
     hosts:
       - host: jellyfin.homelab
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: webserver
+              port: http
+      - host: jellyfin.${EXTERNAL_DOMAIN}
         paths:
           - path: /
             pathType: Prefix

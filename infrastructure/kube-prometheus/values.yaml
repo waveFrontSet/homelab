@@ -10,7 +10,6 @@ grafana:
     enabled: true
     ingressClassName: traefik
     annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: web
       gethomepage.dev/description: Dashboards & Monitoring
       gethomepage.dev/enabled: "true"
       gethomepage.dev/group: Infrastructure
@@ -20,6 +19,7 @@ grafana:
       gethomepage.dev/pod-selector: ""
     hosts:
       - grafana.homelab
+      - grafana.${EXTERNAL_DOMAIN}
     path: /
 prometheus:
   prometheusSpec:

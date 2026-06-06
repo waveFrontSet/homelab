@@ -38,15 +38,16 @@ spec:
       annotations: {}
     ingress:
       enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: web
+      ingressClassName: traefik
+      annotations: {}
       path: /
       hosts:
         - minio.homelab
+        - minio.${EXTERNAL_DOMAIN}
     consoleIngress:
       enabled: true
+      ingressClassName: traefik
       annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: web
         gethomepage.dev/description: S3 compatible storage
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Infrastructure
@@ -56,6 +57,7 @@ spec:
       path: /
       hosts:
         - console.minio.homelab
+        - console.minio.${EXTERNAL_DOMAIN}
     resources:
       requests:
         memory: 2Gi
