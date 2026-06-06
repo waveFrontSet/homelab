@@ -18,7 +18,7 @@ controllers:
           PUID: "1000"
           PGID: "1000"
           TZ: Europe/Berlin
-          BASE_URL: http://mealie.homelab
+          BASE_URL: https://mealie.${EXTERNAL_DOMAIN}
           DB_ENGINE: postgres
           POSTGRES_SERVER: cnpg-pooler-rw.cnpg-cluster.svc
           POSTGRES_PORT: "5432"
