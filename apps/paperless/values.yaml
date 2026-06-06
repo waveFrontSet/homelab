@@ -18,6 +18,19 @@ controllers:
               name: settings
           - secretRef:
               name: paperless-db-secret
+        env:
+          - name: MY_POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: PAPERLESS_URL
+            value: https://paperless.${EXTERNAL_DOMAIN}
+          - name: PAPERLESS_CSRF_TRUSTED_ORIGINS
+            value: http://paperless.homelab
+          - name: PAPERLESS_ALLOWED_HOSTS
+            value: "$(MY_POD_IP),paperless.homelab"
+          - name: PAPERLESS_CORS_ALLOWED_HOSTS
+            value: http://paperless.homelab
         probes:
           liveness:
             enabled: true
