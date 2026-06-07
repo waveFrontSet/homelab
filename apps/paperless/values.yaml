@@ -64,13 +64,12 @@ controllers:
               failureThreshold: 30
               timeoutSeconds: 1
               periodSeconds: 5
-  redis:
-    type: deployment
-    containers:
-      app:
+    initContainers:
+      redis:
         image:
           repository: redis
           tag: "8"
+        restartPolicy: Always
         resources:
           requests:
             cpu: 10m
@@ -106,11 +105,6 @@ service:
     ports:
       http:
         port: 8000
-  redis:
-    controller: redis
-    ports:
-      redis:
-        port: 6379
 ingress:
   webserver:
     className: traefik
