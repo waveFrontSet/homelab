@@ -10,9 +10,9 @@ controllers:
         resources:
           requests:
             cpu: 100m
-            memory: 768Mi
-          limits:
             memory: 1Gi
+          limits:
+            memory: 2Gi
         envFrom:
           - configMapRef:
               name: settings
@@ -26,11 +26,11 @@ controllers:
           - name: PAPERLESS_URL
             value: https://paperless.${EXTERNAL_DOMAIN}
           - name: PAPERLESS_CSRF_TRUSTED_ORIGINS
-            value: http://paperless.homelab
+            value: http://paperless.${LOCAL_DOMAIN},http://paperless-webserver.paperless.svc
           - name: PAPERLESS_ALLOWED_HOSTS
-            value: "$(MY_POD_IP),paperless.homelab"
+            value: "$(MY_POD_IP),paperless.${LOCAL_DOMAIN},paperless-webserver.paperless.svc"
           - name: PAPERLESS_CORS_ALLOWED_HOSTS
-            value: http://paperless.homelab
+            value: http://paperless.${LOCAL_DOMAIN},http://paperless-webserver.paperless.svc
         probes:
           liveness:
             enabled: true
