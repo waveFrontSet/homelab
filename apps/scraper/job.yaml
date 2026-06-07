@@ -58,11 +58,11 @@ spec:
           volumes:
             - name: spiders
               nfs:
-                server: 192.168.2.146
+                server: ${NAS_IP}
                 path: /mnt/Configs/scraper/spiders
             - name: pipelines
               nfs:
-                server: 192.168.2.146
+                server: ${NAS_IP}
                 path: /mnt/Configs/scraper/pipelines
           initContainers:
             - name: flaresolverr

@@ -149,7 +149,7 @@ persistence:
             subPath: export
   consume:
     type: nfs
-    server: 192.168.2.146
+    server: ${NAS_IP}
     path: /mnt/Personal/Dokumente/paperless-eingang
     advancedMounts:
       webserver:
@@ -157,7 +157,7 @@ persistence:
           - path: /usr/src/paperless/consume
   media:
     type: nfs
-    server: 192.168.2.146
+    server: ${NAS_IP}
     path: /mnt/Personal/Dokumente/paperless-media
     advancedMounts:
       webserver:

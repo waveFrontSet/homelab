@@ -98,25 +98,25 @@ persistence:
       - path: /cache
   audiobooks:
     type: nfs
-    server: 192.168.2.146
+    server: ${NAS_IP}
     path: /mnt/Personal/Audiobooks
     globalMounts:
       - path: /audiobooks
   fotos:
     type: nfs
-    server: 192.168.2.146
+    server: ${NAS_IP}
     path: /mnt/Personal/Fotos
     globalMounts:
       - path: /fotos
   music:
     type: nfs
-    server: 192.168.2.146
+    server: ${NAS_IP}
     path: /mnt/Personal/Musik
     globalMounts:
       - path: /music
   videos:
     type: nfs
-    server: 192.168.2.146
+    server: ${NAS_IP}
     path: /mnt/Personal/Videos
     globalMounts:
       - path: /videos
