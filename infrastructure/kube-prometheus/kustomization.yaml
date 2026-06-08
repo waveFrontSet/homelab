@@ -15,6 +15,7 @@ resources:
   - dashboard-ah-lcg.sops.yaml
   - datasource-scrapydb.yaml
   - scrapy-grafana-secret.sops.yaml
+  - prometheusrule-pod-terminations.yaml
 patches:
   # Grafana dashboard JSON contains ${var} template tokens that collide with
   # Flux postBuild envsubst. Opt this ConfigMap out of substitution.

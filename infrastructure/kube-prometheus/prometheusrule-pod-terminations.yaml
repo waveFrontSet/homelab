@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pod-termination-alerts
+  namespace: monitoring
+  labels:
+    release: kube-prometheus
+spec:
+  groups:
+    - name: pod-terminations
+      rules:
+        - alert: PodOOMKilled
+          expr: |
+            kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+              and on (namespace, pod, container)
+                changes(kube_pod_container_status_restarts_total[10m]) > 0
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: "OOMKilled: {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }})"
+            description: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} was OOMKilled within the last 10m."
+        - alert: PodAbnormalTermination
+          expr: |
+            kube_pod_container_status_last_terminated_reason{reason!~"Completed|OOMKilled"} == 1
+              and on (namespace, pod, container)
+                changes(kube_pod_container_status_restarts_total[10m]) > 0
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: "{{ $labels.reason }}: {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }})"
+            description: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} terminated with reason {{ $labels.reason }} within the last 10m."
