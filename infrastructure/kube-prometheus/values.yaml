@@ -29,6 +29,7 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
+          storageClassName: longhorn-no-backup
           resources:
             requests:
               storage: 15Gi
@@ -37,6 +38,7 @@ alertmanager:
     storage:
       volumeClaimTemplate:
         spec:
+          storageClassName: longhorn-no-backup
           resources:
             requests:
               storage: 2Gi

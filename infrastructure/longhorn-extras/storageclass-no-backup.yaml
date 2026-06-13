@@ -1,0 +1,18 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: longhorn-no-backup
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+parameters:
+  numberOfReplicas: "3"
+  staleReplicaTimeout: "30"
+  fromBackup: ""
+  fsType: "ext4"
+  dataLocality: "disabled"
+  # Opt new volumes out of all recurring jobs. The "none" group has no
+  # RecurringJobs targeting it, which suppresses the implicit "default" group
+  # membership Longhorn would otherwise apply.
+  recurringJobSelector: '[{"name":"none","isGroup":true}]'
