@@ -87,7 +87,7 @@ ingress:
             service:
               identifier: webserver
               port: http
-      - host: homeassistant.homelab
+      - host: homeassistant.${LOCAL_DOMAIN}
         paths:
           - path: /
             pathType: Prefix
@@ -104,6 +104,22 @@ persistence:
     name: ha-configuration
     globalMounts:
       - path: /config-from-cm
+  cache:
+    type: emptyDir
+    globalMounts:
+      - path: /config/.cache
+  deps:
+    type: emptyDir
+    globalMounts:
+      - path: /config/deps
+  tts:
+    type: emptyDir
+    globalMounts:
+      - path: /config/tts
+  backups:
+    type: emptyDir
+    globalMounts:
+      - path: /config/backups
   zigbee:
     type: hostPath
     hostPath: /dev/serial/by-id/usb-Silicon_Labs_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0001-if00-port0
