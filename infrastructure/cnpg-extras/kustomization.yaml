@@ -10,6 +10,7 @@ resources:
   - cnpg-minio-secret.sops.yaml
   - cnpg-superuser-password.sops.yaml
   - mealie-db-secret.sops.yaml
+  - immich-db-secret.sops.yaml
   - cluster.yaml
   - scheduled-backup.yaml
   - pgbouncer.yaml

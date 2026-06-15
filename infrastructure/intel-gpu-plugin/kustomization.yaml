@@ -4,3 +4,11 @@ namespace: intel-gpu
 resources:
   - namespace.yaml
   - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/gpu_plugin?ref=v0.36.0
+patches:
+  # Advertise the iGPU as 3 shared `gpu.intel.com/i915` resources so Jellyfin
+  # (1) + Immich ML (1) can co-occupy the device with headroom. Strategic
+  # merge replaces the args list — upstream uses only `-shared-dev-num=1`.
+  - path: shared-dev-num-patch.yaml
+    target:
+      kind: DaemonSet
+      name: intel-gpu-plugin

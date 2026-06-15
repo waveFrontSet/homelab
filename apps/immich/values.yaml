@@ -1,0 +1,179 @@
+defaultPodOptions:
+  securityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: OnRootMismatch
+controllers:
+  server:
+    type: deployment
+    strategy: Recreate
+    initContainers:
+      redis:
+        image:
+          repository: redis
+          tag: 8-alpine
+        restartPolicy: Always
+        resources:
+          requests:
+            cpu: 20m
+            memory: 64Mi
+          limits:
+            memory: 256Mi
+      machine-learning:
+        image:
+          repository: ghcr.io/immich-app/immich-machine-learning
+          tag: v2.7.5-openvino
+        restartPolicy: Always
+        env:
+          TZ: Europe/Berlin
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+            gpu.intel.com/i915: 1
+          limits:
+            cpu: 4
+            memory: 4Gi
+            gpu.intel.com/i915: 1
+    containers:
+      app:
+        image:
+          repository: ghcr.io/immich-app/immich-server
+          tag: v2.7.5
+        env:
+          TZ: Europe/Berlin
+          DB_HOSTNAME: cnpg-pooler-rw.cnpg-cluster.svc
+          DB_PORT: "5432"
+          DB_DATABASE_NAME: immichdb
+          DB_USERNAME: immich
+          REDIS_HOSTNAME: localhost
+          IMMICH_MACHINE_LEARNING_URL: http://localhost:3003
+        envFrom:
+          - secretRef:
+              name: db-secret
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            memory: 2Gi
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/server/ping
+                port: 2283
+              failureThreshold: 3
+              periodSeconds: 30
+              timeoutSeconds: 10
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/server/ping
+                port: 2283
+              failureThreshold: 3
+              periodSeconds: 10
+              timeoutSeconds: 3
+          startup:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/server/ping
+                port: 2283
+              failureThreshold: 60
+              periodSeconds: 5
+              timeoutSeconds: 3
+service:
+  server:
+    controller: server
+    ports:
+      http:
+        port: 2283
+ingress:
+  server:
+    className: traefik
+    annotations:
+      gethomepage.dev/description: Photo library
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Apps
+      gethomepage.dev/icon: immich.png
+      gethomepage.dev/name: Immich
+      gethomepage.dev/app: server
+      gethomepage.dev/pod-selector: ""
+    hosts:
+      - host: immich.${EXTERNAL_DOMAIN}
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: server
+              port: http
+      - host: immich.${LOCAL_DOMAIN}
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: server
+              port: http
+persistence:
+  redis-data:
+    type: emptyDir
+    advancedMounts:
+      server:
+        redis:
+          - path: /data
+  ml-cache:
+    existingClaim: immich-ml-cache
+    advancedMounts:
+      server:
+        machine-learning:
+          - path: /cache
+  ml-throw-away-cache:
+    type: emptyDir
+    advancedMounts:
+      server:
+        machine-learning:
+          - path: /.cache
+  ml-throw-away-config:
+    type: emptyDir
+    advancedMounts:
+      server:
+        machine-learning:
+          - path: /.config
+  library:
+    existingClaim: immich-library
+    advancedMounts:
+      server:
+        app:
+          - path: /usr/src/app/upload
+        machine-learning:
+          - path: /usr/src/app/upload
+  upload-originals:
+    type: nfs
+    server: ${NAS_IP}
+    path: /mnt/Personal/Fotos-Immich
+    advancedMounts:
+      server:
+        app:
+          - path: /usr/src/app/upload/library
+        machine-learning:
+          - path: /usr/src/app/upload/library
+            readOnly: true
+  fotos:
+    type: nfs
+    server: ${NAS_IP}
+    path: /mnt/Personal/Fotos
+    advancedMounts:
+      server:
+        app:
+          - path: /external/fotos
+            readOnly: true
+        machine-learning:
+          - path: /external/fotos
+            readOnly: true

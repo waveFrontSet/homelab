@@ -4,6 +4,7 @@ resources:
   - bjw-s-helmrepo.yaml
   - blocky
   - scraper
+  - immich
   - jellyfin
   - mealie
   - paperless
