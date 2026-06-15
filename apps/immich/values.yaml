@@ -56,8 +56,10 @@ controllers:
           requests:
             cpu: 200m
             memory: 512Mi
+            gpu.intel.com/i915: 1
           limits:
             memory: 2Gi
+            gpu.intel.com/i915: 1
         probes:
           liveness:
             enabled: true
@@ -165,6 +167,14 @@ persistence:
         machine-learning:
           - path: /usr/src/app/upload/library
             readOnly: true
+  encoded-video:
+    type: nfs
+    server: ${NAS_IP}
+    path: /mnt/Personal/Fotos-Immich/encoded-video
+    advancedMounts:
+      server:
+        app:
+          - path: /usr/src/app/upload/encoded-video
   fotos:
     type: nfs
     server: ${NAS_IP}
