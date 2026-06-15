@@ -148,6 +148,14 @@ persistence:
       server:
         machine-learning:
           - path: /.config
+  ml-dev-shm:
+    type: emptyDir
+    medium: Memory
+    sizeLimit: 2Gi
+    advancedMounts:
+      server:
+        machine-learning:
+          - path: /dev/shm
   library:
     existingClaim: immich-library
     advancedMounts:
