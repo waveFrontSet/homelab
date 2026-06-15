@@ -23,7 +23,7 @@ controllers:
       machine-learning:
         image:
           repository: ghcr.io/immich-app/immich-machine-learning
-          tag: v2.7.5-openvino
+          tag: v2.7.5
         restartPolicy: Always
         env:
           TZ: Europe/Berlin
