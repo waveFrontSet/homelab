@@ -183,6 +183,14 @@ persistence:
       server:
         app:
           - path: /usr/src/app/upload/encoded-video
+  thumbs:
+    type: nfs
+    server: ${NAS_IP}
+    path: /mnt/Personal/Fotos/thumbs
+    advancedMounts:
+      server:
+        app:
+          - path: /usr/src/app/upload/thumbs
   fotos:
     type: nfs
     server: ${NAS_IP}
