@@ -26,11 +26,11 @@ controllers:
           - name: PAPERLESS_URL
             value: https://paperless.${EXTERNAL_DOMAIN}
           - name: PAPERLESS_CSRF_TRUSTED_ORIGINS
-            value: http://paperless.${LOCAL_DOMAIN},http://paperless-webserver.paperless.svc
+            value: http://paperless.${LOCAL_DOMAIN},http://paperless.paperless.svc
           - name: PAPERLESS_ALLOWED_HOSTS
-            value: "$(MY_POD_IP),paperless.${LOCAL_DOMAIN},paperless-webserver.paperless.svc"
+            value: "$(MY_POD_IP),paperless.${LOCAL_DOMAIN},paperless.paperless.svc"
           - name: PAPERLESS_CORS_ALLOWED_HOSTS
-            value: http://paperless.${LOCAL_DOMAIN},http://paperless-webserver.paperless.svc
+            value: http://paperless.${LOCAL_DOMAIN},http://paperless.paperless.svc
         probes:
           liveness:
             enabled: true
