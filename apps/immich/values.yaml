@@ -191,7 +191,7 @@ persistence:
       server:
         app:
           - path: /external/fotos
-            readOnly: true
+            readOnly: false
         machine-learning:
           - path: /external/fotos
             readOnly: true
