@@ -3,6 +3,13 @@ grafana:
     existingSecret: grafana-admin
     userKey: admin-user
     passwordKey: admin-password
+  # Pin authentik's hostname to the Traefik LB IP so Grafana's server-side OIDC
+  # calls stay on the LAN (mirrors blocky). Not app-template, so it can't use
+  # the authentik-client component.
+  hostAliases:
+    - ip: 192.168.2.18
+      hostnames:
+        - authentik.${EXTERNAL_DOMAIN}
   envFromSecret: scrapy-grafana
   # authentik OIDC client id/secret (read by Grafana as [auth.generic_oauth])
   envValueFrom:

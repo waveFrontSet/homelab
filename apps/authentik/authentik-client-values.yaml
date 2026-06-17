@@ -1,0 +1,14 @@
+# Shared app-template values for authentik OIDC clients. Mounted into each
+# client's HelmRelease via an extra valuesFrom by the authentik-client Kustomize
+# component (apps/components/authentik-client).
+#
+# Pods resolve the external domain through CoreDNS -> router -> public, which
+# returns Cloudflare's IP; the LAN-only authentik then can't be reached (525).
+# Pin authentik's hostname to the Traefik LoadBalancer IP, mirroring blocky's
+# customDNS mapping (apps/blocky/values.yaml) so server-side OIDC calls stay on
+# the LAN with a valid wildcard cert.
+defaultPodOptions:
+  hostAliases:
+    - ip: 192.168.2.18
+      hostnames:
+        - authentik.${EXTERNAL_DOMAIN}
