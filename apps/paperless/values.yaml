@@ -18,6 +18,8 @@ controllers:
               name: settings
           - secretRef:
               name: paperless-db-secret
+          - secretRef:
+              name: paperless-oidc-secret
         env:
           - name: MY_POD_IP
             valueFrom:

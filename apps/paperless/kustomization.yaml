@@ -16,5 +16,6 @@ generatorOptions:
 resources:
   - namespace.yaml
   - db-secret.sops.yaml
+  - paperless-oidc-secret.sops.yaml
   - paperless-folder.yaml
   - helmrelease.yaml
