@@ -62,3 +62,14 @@ spec:
       ensure: present
     - name: earthdistance
       ensure: present
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: authentikdb
+  namespace: cnpg-cluster
+spec:
+  name: authentikdb
+  owner: authentik
+  cluster:
+    name: cnpg-cluster

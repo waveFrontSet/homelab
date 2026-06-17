@@ -1,0 +1,61 @@
+authentik:
+  error_reporting:
+    enabled: false
+  postgresql:
+    # Connect directly to the CNPG primary, NOT the pgbouncer pooler: authentik
+    # (post-Redis) relies on PostgreSQL LISTEN/NOTIFY and advisory locks, which
+    # are unreliable through a pooled connection.
+    host: cnpg-cluster-rw.cnpg-cluster.svc
+    name: authentikdb
+    user: authentik
+    port: 5432
+    # password injected via AUTHENTIK_POSTGRESQL__PASSWORD (global.env below)
+
+global:
+  env:
+    - name: AUTHENTIK_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: AUTHENTIK_SECRET_KEY
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: AUTHENTIK_POSTGRESQL__PASSWORD
+    - name: AUTHENTIK_BOOTSTRAP_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: AUTHENTIK_BOOTSTRAP_PASSWORD
+    - name: AUTHENTIK_BOOTSTRAP_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: AUTHENTIK_BOOTSTRAP_TOKEN
+    - name: AUTHENTIK_BOOTSTRAP_EMAIL
+      valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: AUTHENTIK_BOOTSTRAP_EMAIL
+
+# Use the external CloudNativePG cluster instead of the bundled Bitnami subchart.
+postgresql:
+  enabled: false
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      gethomepage.dev/description: Identity Provider / SSO
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Apps
+      gethomepage.dev/icon: authentik.png
+      gethomepage.dev/name: Authentik
+    hosts:
+      - authentik.${EXTERNAL_DOMAIN}
+      - authentik.${LOCAL_DOMAIN}
+
+worker:
+  enabled: true

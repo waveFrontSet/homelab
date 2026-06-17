@@ -73,3 +73,12 @@ spec:
         inRoles:
           - pg_monitor
           - pg_signal_backend
+      - name: authentik
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: authentik-db-secret
+        inRoles:
+          - pg_monitor
+          - pg_signal_backend
