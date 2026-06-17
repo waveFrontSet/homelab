@@ -22,6 +22,8 @@ spec:
       name: RetryOnFailure
       retryInterval: 5m
   values:
+    deployment:
+      kind: DaemonSet
     providers:
       kubernetesIngress:
         publishedService:
