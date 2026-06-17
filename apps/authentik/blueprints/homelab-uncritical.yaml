@@ -48,6 +48,9 @@ entries:
       client_type: confidential
       client_id: !Env GRAFANA_CLIENT_ID
       client_secret: !Env GRAFANA_CLIENT_SECRET
+      grant_types:
+        - authorization_code
+        - refresh_token
       signing_key: !Find [authentik_crypto.certificatekeypair, [name, authentik Self-signed Certificate]]
       redirect_uris:
         - url: "https://grafana.${EXTERNAL_DOMAIN}/login/generic_oauth"
@@ -80,6 +83,9 @@ entries:
       client_type: confidential
       client_id: !Env MEALIE_CLIENT_ID
       client_secret: !Env MEALIE_CLIENT_SECRET
+      grant_types:
+        - authorization_code
+        - refresh_token
       signing_key: !Find [authentik_crypto.certificatekeypair, [name, authentik Self-signed Certificate]]
       redirect_uris:
         - url: "https://mealie.${EXTERNAL_DOMAIN}/login"
@@ -116,6 +122,9 @@ entries:
       client_type: confidential
       client_id: !Env IMMICH_CLIENT_ID
       client_secret: !Env IMMICH_CLIENT_SECRET
+      grant_types:
+        - authorization_code
+        - refresh_token
       signing_key: !Find [authentik_crypto.certificatekeypair, [name, authentik Self-signed Certificate]]
       redirect_uris:
         - url: "app.immich:///oauth-callback"
@@ -154,6 +163,9 @@ entries:
       client_type: confidential
       client_id: !Env JELLYFIN_CLIENT_ID
       client_secret: !Env JELLYFIN_CLIENT_SECRET
+      grant_types:
+        - authorization_code
+        - refresh_token
       signing_key: !Find [authentik_crypto.certificatekeypair, [name, authentik Self-signed Certificate]]
       redirect_uris:
         - url: "https://jellyfin.${EXTERNAL_DOMAIN}/sso/OID/redirect/authentik"
