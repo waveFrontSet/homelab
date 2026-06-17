@@ -10,6 +10,12 @@ configMapGenerator:
     namespace: flux-system
     files:
       - values.yaml
+  # Shared values for OIDC client apps, consumed via the authentik-client
+  # Kustomize component (apps/components/authentik-client).
+  - name: authentik-client-values
+    namespace: flux-system
+    files:
+      - values.yaml=authentik-client-values.yaml
   - name: authentik-blueprints
     namespace: authentik
     files:
