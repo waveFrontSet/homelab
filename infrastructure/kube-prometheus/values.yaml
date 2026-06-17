@@ -4,6 +4,34 @@ grafana:
     userKey: admin-user
     passwordKey: admin-password
   envFromSecret: scrapy-grafana
+  # authentik OIDC client id/secret (read by Grafana as [auth.generic_oauth])
+  envValueFrom:
+    GF_AUTH_GENERIC_OAUTH_CLIENT_ID:
+      secretKeyRef:
+        name: grafana-oauth
+        key: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+    GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
+      secretKeyRef:
+        name: grafana-oauth
+        key: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
+  grafana.ini:
+    server:
+      root_url: https://grafana.${EXTERNAL_DOMAIN}
+    auth:
+      # Link the existing local Grafana users to authentik by email.
+      oauth_allow_insecure_email_lookup: true
+      # Keep the password form reachable during migration; flip on afterward.
+      oauth_auto_login: false
+      signout_redirect_url: https://authentik.${EXTERNAL_DOMAIN}/application/o/grafana/end-session/
+    auth.generic_oauth:
+      enabled: true
+      name: authentik
+      scopes: openid email profile
+      auth_url: https://authentik.${EXTERNAL_DOMAIN}/application/o/authorize/
+      token_url: https://authentik.${EXTERNAL_DOMAIN}/application/o/token/
+      api_url: https://authentik.${EXTERNAL_DOMAIN}/application/o/userinfo/
+      # Map authentik group membership (groups claim) to Grafana roles.
+      role_attribute_path: contains(groups[*], 'grafana-admins') && 'Admin' || contains(groups[*], 'grafana-editors') && 'Editor' || 'Viewer'
   service:
     type: LoadBalancer
   ingress:

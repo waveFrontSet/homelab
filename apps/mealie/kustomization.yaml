@@ -4,6 +4,7 @@ resources:
   - namespace.yaml
   - app-data.yaml
   - db-secret.sops.yaml
+  - oidc-secret.sops.yaml
   - helmrelease.yaml
 configMapGenerator:
   - name: mealie-values

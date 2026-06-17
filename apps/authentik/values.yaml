@@ -44,6 +44,9 @@ postgresql:
   enabled: false
 
 server:
+  envFrom:
+    - secretRef:
+        name: authentik-oidc-credentials
   ingress:
     enabled: true
     ingressClassName: traefik
@@ -59,3 +62,11 @@ server:
 
 worker:
   enabled: true
+  envFrom:
+    - secretRef:
+        name: authentik-oidc-credentials
+
+# Declarative providers/applications applied by the worker on startup.
+blueprints:
+  configMaps:
+    - authentik-blueprints

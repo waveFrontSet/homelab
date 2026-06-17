@@ -3,12 +3,17 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - authentik-secret.sops.yaml
+  - authentik-oidc-credentials.sops.yaml
   - helmrelease.yaml
 configMapGenerator:
   - name: authentik-values
     namespace: flux-system
     files:
       - values.yaml
+  - name: authentik-blueprints
+    namespace: authentik
+    files:
+      - blueprints/homelab-uncritical.yaml
 generatorOptions:
   disableNameSuffixHash: true
   labels:

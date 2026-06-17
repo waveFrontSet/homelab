@@ -23,9 +23,22 @@ controllers:
           POSTGRES_SERVER: cnpg-pooler-rw.cnpg-cluster.svc
           POSTGRES_PORT: "5432"
           POSTGRES_DB: mealiedb
+          # authentik OIDC (client id/secret come from the oidc-secret envFrom)
+          OIDC_AUTH_ENABLED: "true"
+          OIDC_PROVIDER_NAME: authentik
+          OIDC_CONFIGURATION_URL: https://authentik.${EXTERNAL_DOMAIN}/application/o/mealie/.well-known/openid-configuration
+          OIDC_USER_CLAIM: email
+          OIDC_SIGNUP_ENABLED: "true"
+          OIDC_USER_GROUP: mealie-users
+          OIDC_ADMIN_GROUP: mealie-admins
+          OIDC_REMEMBER_ME: "true"
+          # Keep the password form reachable during migration; flip on afterward.
+          OIDC_AUTO_REDIRECT: "false"
         envFrom:
           - secretRef:
               name: db-secret
+          - secretRef:
+              name: oidc-secret
         probes:
           liveness:
             enabled: true
