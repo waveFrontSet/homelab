@@ -56,6 +56,7 @@ server:
       gethomepage.dev/group: Apps
       gethomepage.dev/icon: authentik.png
       gethomepage.dev/name: Authentik
+      gethomepage.dev/pod-selector: ""
     hosts:
       - authentik.${EXTERNAL_DOMAIN}
       - authentik.${LOCAL_DOMAIN}
