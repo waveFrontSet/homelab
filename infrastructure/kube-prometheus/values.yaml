@@ -56,6 +56,15 @@ grafana:
       - grafana.${EXTERNAL_DOMAIN}
       - grafana.homelab
     path: /
+  persistence:
+    enabled: true
+    type: sts
+    storageClassName: "longhorn"
+    accessModes:
+      - ReadWriteOnce
+    size: 2Gi
+    finalizers:
+      - kubernetes.io/pvc-protection
 prometheus:
   prometheusSpec:
     retention: 15d
