@@ -22,12 +22,24 @@ entries:
       name: home-assistant
     attrs:
       name: home-assistant
-      authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
-      invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+      authorization_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, default-provider-authorization-implicit-consent],
+        ]
+      invalidation_flow:
+        !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
       client_type: confidential
       client_id: !Env HOMEASSISTANT_CLIENT_ID
       client_secret: !Env HOMEASSISTANT_CLIENT_SECRET
-      signing_key: !Find [authentik_crypto.certificatekeypair, [name, authentik Self-signed Certificate]]
+      grant_types:
+        - authorization_code
+        - refresh_token
+      signing_key:
+        !Find [
+          authentik_crypto.certificatekeypair,
+          [name, authentik Self-signed Certificate],
+        ]
       redirect_uris:
         - url: "https://homeassistant.${EXTERNAL_DOMAIN}/auth/oidc/callback"
           matching_mode: strict
@@ -54,12 +66,24 @@ entries:
       name: paperless
     attrs:
       name: paperless
-      authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
-      invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+      authorization_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, default-provider-authorization-implicit-consent],
+        ]
+      invalidation_flow:
+        !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
       client_type: confidential
       client_id: !Env PAPERLESS_CLIENT_ID
       client_secret: !Env PAPERLESS_CLIENT_SECRET
-      signing_key: !Find [authentik_crypto.certificatekeypair, [name, authentik Self-signed Certificate]]
+      grant_types:
+        - authorization_code
+        - refresh_token
+      signing_key:
+        !Find [
+          authentik_crypto.certificatekeypair,
+          [name, authentik Self-signed Certificate],
+        ]
       redirect_uris:
         - url: "https://paperless.${EXTERNAL_DOMAIN}/accounts/oidc/authentik/login/callback/"
           matching_mode: strict
