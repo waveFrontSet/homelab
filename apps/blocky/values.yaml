@@ -6,7 +6,7 @@ controllers:
       app:
         image:
           repository: spx01/blocky
-          tag: v0.32.0
+          tag: v0.33.0
         resources:
           requests:
             cpu: 20m
