@@ -20,6 +20,7 @@ configMapGenerator:
     namespace: authentik
     files:
       - blueprints/homelab-uncritical.yaml
+      - blueprints/homelab-critical.yaml
 generatorOptions:
   disableNameSuffixHash: true
   labels:
