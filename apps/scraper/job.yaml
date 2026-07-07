@@ -13,7 +13,7 @@ spec:
             - name: ghcr-pull-secret
           containers:
             - name: scraper
-              image: ghcr.io/wavefrontset/lcgo-offers:3.0.0
+              image: ghcr.io/wavefrontset/lcgo-offers:3.0.1
               resources:
                 requests:
                   cpu: 10m
