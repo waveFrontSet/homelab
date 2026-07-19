@@ -25,10 +25,8 @@ grafana:
     server:
       root_url: https://grafana.${EXTERNAL_DOMAIN}
     auth:
-      # Link the existing local Grafana users to authentik by email.
       oauth_allow_insecure_email_lookup: true
-      # Keep the password form reachable during migration; flip on afterward.
-      oauth_auto_login: false
+      oauth_auto_login: true
       signout_redirect_url: https://authentik.${EXTERNAL_DOMAIN}/application/o/grafana/end-session/
     auth.generic_oauth:
       enabled: true
