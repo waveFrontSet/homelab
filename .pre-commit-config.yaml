@@ -5,7 +5,7 @@ repos:
       - id: yamllint
         args: [--strict, -c, .yamllint]
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.23.0
+    rev: v0.23.1
     hooks:
       - id: markdownlint-cli2
   - repo: https://github.com/antonbabenko/pre-commit-terraform
