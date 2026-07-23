@@ -81,6 +81,22 @@ entries:
       policy_engine_mode: any
 
   # --- Mealie ------------------------------------------------------------
+  # Custom "email" scope mapping asserting email_verified=true.
+  # authentik >=2025.10 makes the default email scope emit email_verified=false;
+  # Mealie 3.21+ refuses OIDC login unless the claim is true.
+  - model: authentik_providers_oauth2.scopemapping
+    id: mapping-email-verified
+    identifiers:
+      name: "email (email_verified=true)"
+    attrs:
+      name: "email (email_verified=true)"
+      scope_name: email
+      description: "OIDC 'email' scope with email_verified forced true"
+      expression: |
+        return {
+            "email": request.user.email,
+            "email_verified": True,
+        }
   - model: authentik_providers_oauth2.oauth2provider
     id: provider-mealie
     identifiers:
@@ -116,7 +132,7 @@ entries:
           matching_mode: strict
       property_mappings:
         - !Find [authentik_providers_oauth2.scopemapping, [scope_name, openid]]
-        - !Find [authentik_providers_oauth2.scopemapping, [scope_name, email]]
+        - !KeyOf mapping-email-verified
         - !Find [authentik_providers_oauth2.scopemapping, [scope_name, profile]]
   - model: authentik_core.application
     identifiers:
