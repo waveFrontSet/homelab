@@ -32,6 +32,7 @@ controllers:
           OIDC_USER_GROUP: mealie-users
           OIDC_ADMIN_GROUP: mealie-admins
           OIDC_REMEMBER_ME: "true"
+          OIDC_REQUIRES_EMAIL_VERIFICATION: "false"
           # Keep the password form reachable during migration; flip on afterward.
           OIDC_AUTO_REDIRECT: "false"
         envFrom:
