@@ -6,7 +6,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/mealie-recipes/mealie
-          tag: v3.21.0
+          tag: v3.22.0
         resources:
           requests:
             cpu: 20m
@@ -32,6 +32,7 @@ controllers:
           OIDC_USER_GROUP: mealie-users
           OIDC_ADMIN_GROUP: mealie-admins
           OIDC_REMEMBER_ME: "true"
+          OIDC_REQUIRES_EMAIL_VERIFICATION: "false"
           # Keep the password form reachable during migration; flip on afterward.
           OIDC_AUTO_REDIRECT: "false"
         envFrom:
