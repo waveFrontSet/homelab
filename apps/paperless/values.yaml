@@ -65,7 +65,7 @@ controllers:
               initialDelaySeconds: 0
               failureThreshold: 30
               timeoutSeconds: 1
-              periodSeconds: 5
+              periodSeconds: 10
     initContainers:
       redis:
         image:
