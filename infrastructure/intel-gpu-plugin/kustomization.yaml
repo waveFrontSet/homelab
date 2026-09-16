@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: intel-gpu
 resources:
   - namespace.yaml
-  - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/gpu_plugin?ref=v0.36.0
+  - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/gpu_plugin?ref=v0.37.0
 patches:
   # Advertise the iGPU as 3 shared `gpu.intel.com/i915` resources so Jellyfin
   # (1) + Immich ML (1) can co-occupy the device with headroom. Strategic
