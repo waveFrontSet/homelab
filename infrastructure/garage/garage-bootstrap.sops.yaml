@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: garage-bootstrap
+    namespace: garage
+stringData:
+    rpcSecret: ENC[AES256_GCM,data:RSt/EbU5nXO5O6u5T8Cknk5hJ2iMBhnnIz5f9GM08hLJxgeviAGxuYAugO7TJZAqgoTjQyD2rARJzStAl8XJag==,iv:CdycQG51SAkt7ggn2X1jV8puYDRcbmzRpRwDgURjeD8=,tag:ZXzeT1U0SPSdU+7MlcNhUA==,type:str]
+    adminToken: ENC[AES256_GCM,data:TapBrUuUAi1StgARJxpAT9gGVY/Q8yjqgp4gu2jsTIVOxgPUN274tWgb3/I=,iv:6fd44Fd7A4TuaR5bBXWMuudDgnCJc7bKcXTBBUZiG3c=,tag:kwdrKtQOizAT7d8Crr5LLA==,type:str]
+    cnpgAccessKeyId: ENC[AES256_GCM,data:WTPd6bU2XNv+UJwHsnPz2y5o5YFPGLgRrU25MDEBi0lF7Q==,iv:O30LjSGq6PVajY9eZXsLZWAEnh0E9O4ssriUcbUV3h8=,tag:MyStKKPgN8wWEgQAFHdZDQ==,type:str]
+    cnpgSecretAccessKey: ENC[AES256_GCM,data:i1HxlJtNViznkhe3WVr6enUeB5bugeZwMTjTvuC8hXpk0X25Z65UKGattQU/FX0sZwBNBVq2vrLUzr7R7VSrcw==,iv:YCW0S76/tPmV7aFu4QoMVCCF02eHKo7TAAWs70FeBr0=,tag:PFOTUuQ67ZONK+6O/DTYiQ==,type:str]
+    longhornAccessKeyId: ENC[AES256_GCM,data:392lkIZMjU8XkUXozy4zrhGmPeANHMlxLrwKP5bIQy+j9Q==,iv:zAdluuEalVwnxyacFkJGuPJpUFa03fdTLRgXCoVRW+0=,tag:vA0OU3rumUBzmvMQBEjYkQ==,type:str]
+    longhornSecretAccessKey: ENC[AES256_GCM,data:r6zpb69Ux8ZcCX00CaXcRoPfQ5IlgvhUHdnh330H3RfxB/AKOcSVtijOY9VI744g1S0bD1d+Z51+Q08ZToZG6Q==,iv:GZOg98jZ/neogU876iq1ZwrMHbDu2bcp1Fga4hSMpcs=,tag:+Ui8mQsHxa4jCChMVrXVPQ==,type:str]
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxNlRuNTk4dDdUZVZqL0Yy
+            WmV1ZGcyOTV3TU10SWk4L3BxMzE3djFWS25zCnVkSXIxekxhaDFUcjNnWEJZRGg0
+            NmJMZzltQ2c4U0h4N05MTURZYmlMbVEKLS0tIFpkZDh6WnI0cGRtNUNYTVVKSHNt
+            NS9ETVZhNDNxZWJjbkNnYWU0UDM3b2MKAoMex1ZFp1fthDMt+u51EwtIuUET7Fcy
+            o+svdBiPYqqIsaKR5aeVu2YB562Z0S0CfJuJXAMDP71HmmkqBr9ffA==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1d06qu8eegt8wf8pewe8gw50jrrxt8wwzjhqhxgnl7f4myq9dzdxsdrps49
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-09-19T14:17:13Z"
+    mac: ENC[AES256_GCM,data:F01Fy0tS1WRExmy2HQpjIWBQToYZAwncx2Atf5sqxeDu+uR5FcPcPk06ENpDV0/4DMWEEFcf3n6sf15zciJFPnZ7PnGfWhhrdXYv2fr+HFCuRLgKtykTC2BCMamizP2VZJRxKIjE94qLq5BsxD591y9gqvcWJKnN8tCDMenD1LY=,iv:YqT0dGojssh5VH85GGaXLnxD09/XSKjVc1JzRARocbE=,tag:TNhatUGARTlc9dJcgkqcCw==,type:str]
+    version: 3.13.3
