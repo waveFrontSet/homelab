@@ -6,6 +6,7 @@ sortOptions:
 resources:
   - namespace.yaml
   - longhorn-minio-secret.sops.yaml
+  - longhorn-garage-secret.sops.yaml
   - helmrepo.yaml
   - helmrelease.yaml
   - ingress-extra.yaml
