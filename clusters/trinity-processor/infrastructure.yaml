@@ -128,6 +128,28 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: garage
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: nfs-subdir-provisioner
+  interval: 10m0s
+  retryInterval: 1m
+  timeout: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/garage
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: nfs-subdir-provisioner
   namespace: flux-system
 spec:
