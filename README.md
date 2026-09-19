@@ -15,6 +15,17 @@ to be installed manually, preferably via `helm`. See
 [./infrastructure/cilium/README.md](./infrastructure/cilium/README.md) for
 details.
   
+## Backup and recovery
+
+CNPG keeps a 7-day recovery window in an S3-compatible object store; Longhorn
+runs daily backups and retains seven copies. See the
+[CNPG recovery playbook](./docs/cnpg-recovery.md) and
+[MinIO-to-Garage migration guide](./docs/object-store-migration.md) before
+changing either target.
+
+Both the current and replacement local stores reside on the NAS. They do not
+recover NAS or site loss; an independent managed-S3 copy is still deferred.
+
 ## Apps
   
 Apps in my cluster were migrated via a lift-and-shift approach from systemd

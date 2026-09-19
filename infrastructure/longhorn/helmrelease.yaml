@@ -23,8 +23,8 @@ spec:
       retryInterval: 5m
   values:
     defaultBackupStore:
-      backupTarget: "s3://longhorn-backups@eu-west-1/"
-      backupTargetCredentialSecret: longhorn-minio-secret
+      backupTarget: "s3://longhorn-backups@garage/"
+      backupTargetCredentialSecret: longhorn-garage-secret
     persistence:
       defaultClassReplicaCount: 3
     ingress:
