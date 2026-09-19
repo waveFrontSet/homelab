@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: garage-client-config
-  namespace: garage
-data:
-  garage.toml: |
-    [admin]
-    api_bind_addr = "garage-admin.garage.svc:3903"

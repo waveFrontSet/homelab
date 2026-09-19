@@ -3,9 +3,5 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - garage-bootstrap.sops.yaml
-  - garage-config.yaml
-  - garage-client-config.yaml
-  - pvc.yaml
-  - service.yaml
-  - statefulset.yaml
-  - bootstrap-job.yaml
+  - gitrepo.yaml
+  - helmrelease.yaml

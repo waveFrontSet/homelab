@@ -1,0 +1,116 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: garage-release
+  namespace: garage
+spec:
+  chart:
+    spec:
+      chart: ./script/helm/garage
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: GitRepository
+        name: garage-repo
+  interval: 10m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+    strategy:
+      name: RetryOnFailure
+      retryInterval: 5m
+  values:
+    commonLabels: {}
+    garage:
+      dbEngine: "sqlite"
+      replicationFactor: "1"
+      singleNode: true
+      consistencyMode: "consistent"
+      compressionLevel: "1"
+      metadataAutoSnapshotInterval: "6h"
+      rpcBindAddr: "[::]:3901"
+      existingRpcSecret: "garage-bootstrap"
+      s3:
+        api:
+          bindAddr: "[::]:3900"
+          region: "garage"
+      admin:
+        apiBindAddr: "[::]:3903"
+    persistence:
+      enabled: true
+      meta:
+        size: 100Mi
+      data:
+        storageClass: "nfs"
+        size: 150Gi
+    deployment:
+      kind: StatefulSet
+      replicaCount: 1
+      podManagementPolicy: OrderedReady
+    podAnnotations: {}
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "Always"
+    service:
+      type: ClusterIP
+      annotations: {}
+      s3:
+        api:
+          port: 3900
+        web:
+          port: 3902
+      admin:
+        enabled: true
+        annotations: {}
+    ingress:
+      s3:
+        api:
+          enabled: true
+          className: traefik
+          hosts:
+            - host: "s3.garage.${EXTERNAL_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+        web:
+          enabled: false
+          className: traefik
+          annotations:
+            gethomepage.dev/description: "S3 compatible storage"
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Infrastructure
+            gethomepage.dev/icon: garage.png
+            gethomepage.dev/name: Garage
+            gethomepage.dev/app: garage
+            gethomepage.dev/pod-selector: ""
+          hosts:
+            - host: "*.web.garage.${EXTERNAL_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+    resources:
+      limits:
+        cpu: 100m
+        memory: 1024Mi
+      requests:
+        cpu: 100m
+        memory: 512Mi
+    livenessProbe:
+      httpGet:
+        path: /health
+        port: 3903
+      initialDelaySeconds: 5
+      periodSeconds: 30
+    readinessProbe:
+      httpGet:
+        path: /health
+        port: 3903
+      initialDelaySeconds: 5
+      periodSeconds: 30
+    monitoring:
+      metrics:
+        enabled: true
