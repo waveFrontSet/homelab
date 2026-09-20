@@ -11,7 +11,7 @@ spec:
   backup:
     barmanObjectStore:
       destinationPath: "s3://cnpg-backups/"
-      endpointURL: "http://garage.garage:3900"
+      endpointURL: "http://garage-release.garage:3900"
       s3Credentials:
         accessKeyId:
           name: cnpg-garage-secret
