@@ -15,10 +15,10 @@ terraform {
   backend "s3" {
     bucket = "terraform-state"
     key    = "homelab/talos.tfstate"
-    region = "eu-central-1"
+    region = "garage"
 
     endpoints = {
-      s3 = "http://minio.homelab"
+      s3 = "http://s3.garage.homelab"
     }
 
     use_path_style              = true

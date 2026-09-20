@@ -76,6 +76,10 @@ spec:
               paths:
                 - path: /
                   pathType: Prefix
+            - host: "s3.garage.${LOCAL_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
         web:
           enabled: false
           className: traefik
