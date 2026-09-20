@@ -14,37 +14,31 @@ bootstrapping the kubernetes cluster but BEFORE bootstrapping flux, cilium needs
 to be installed manually, preferably via `helm`. See
 [./infrastructure/cilium/README.md](./infrastructure/cilium/README.md) for
 details.
-  
+
 ## Backup and recovery
 
 CNPG keeps a 7-day recovery window in an S3-compatible object store; Longhorn
 runs daily backups and retains seven copies. See the
-[CNPG recovery playbook](./docs/cnpg-recovery.md) and
-[MinIO-to-Garage migration guide](./docs/object-store-migration.md) before
-changing either target.
-
-Both the current and replacement local stores reside on the NAS. They do not
-recover NAS or site loss; an independent managed-S3 copy is still deferred.
+[CNPG recovery playbook](./docs/cnpg-recovery.md) before changing either target.
 
 ## Apps
-  
+
 Apps in my cluster were migrated via a lift-and-shift approach from systemd
 processes provisioned via ansible.
 
 ### blocky
 
-[blocky](https://0xerr0r.github.io/blocky/latest/) is a DNS proxy for blocking ads.
-I also use it as local DNS server for my homelab, replacing pihole.
+[blocky](https://0xerr0r.github.io/blocky/latest/) is a DNS proxy for blocking
+ads. I also use it as local DNS server for my homelab, replacing pihole.
 
 ### homeassistant
 
-[Home Assistant](https://www.home-assistant.io/) is a home automation
-platform.
+[Home Assistant](https://www.home-assistant.io/) is a home automation platform.
 
 ### jellyfin
 
-[Jellyfin](https://jellyfin.org/) is an opensource media server and, thus,
-a replacement for the (arguably) more popular plex.
+[Jellyfin](https://jellyfin.org/) is an opensource media server and, thus, a
+replacement for the (arguably) more popular plex.
 
 ### paperless
 
@@ -56,10 +50,10 @@ management system.
 [Scrapy](https://www.scrapy.org/) is my favorite Python framework for web
 crawling tasks. It's mature, has sensible modules and a lot of quality of life
 features. Scrapy's main concept is the `Spider` class that contains the crawl
-logic. One can use Scrapy's CLI to start such a `Spider`.  For deployment of
-spiders, there's a [daemon service with a JSON API called
-`scrapyd`](https://scrapyd.readthedocs.io/en/stable/). It may schedule and spawn
-crawling processes based on spiders.
+logic. One can use Scrapy's CLI to start such a `Spider`. For deployment of
+spiders, there's a
+[daemon service with a JSON API called `scrapyd`](https://scrapyd.readthedocs.io/en/stable/).
+It may schedule and spawn crawling processes based on spiders.
 
 It's tempting to improve `scrapyd` to start Kubernetes jobs instead and, indeed,
 there's some effort in implementing a kubernetes-native `scrapyd` version:
