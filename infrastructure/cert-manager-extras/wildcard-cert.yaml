@@ -11,6 +11,7 @@ spec:
     kind: ClusterIssuer
   commonName: "*.${EXTERNAL_DOMAIN}"
   dnsNames:
+    - "*.garage.${EXTERNAL_DOMAIN}"
     - "*.${EXTERNAL_DOMAIN}"
     - "${EXTERNAL_DOMAIN}"
   duration: 2160h

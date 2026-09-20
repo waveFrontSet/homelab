@@ -7,7 +7,6 @@ resources:
   - scrapy-db-secret.sops.yaml
   - blocky-db-secret.sops.yaml
   - paperless-db-secret.sops.yaml
-  - cnpg-minio-secret.sops.yaml
   - cnpg-garage-secret.sops.yaml
   - cnpg-superuser-password.sops.yaml
   - mealie-db-secret.sops.yaml
