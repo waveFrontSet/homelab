@@ -11,14 +11,17 @@ spec:
   backup:
     barmanObjectStore:
       destinationPath: "s3://cnpg-backups/"
-      endpointURL: "http://minio.minio:9000"
+      endpointURL: "http://garage-release.garage:3900"
       s3Credentials:
         accessKeyId:
-          name: cnpg-minio-secret
+          name: cnpg-garage-secret
           key: AWS_ACCESS_KEY_ID
         secretAccessKey:
-          name: cnpg-minio-secret
+          name: cnpg-garage-secret
           key: AWS_SECRET_ACCESS_KEY
+        region:
+          name: cnpg-garage-secret
+          key: AWS_REGION
       wal:
         compression: gzip
       data:

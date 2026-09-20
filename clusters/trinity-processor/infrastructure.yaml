@@ -200,7 +200,7 @@ metadata:
 spec:
   dependsOn:
     - name: cnpg
-    - name: minio
+    - name: garage
   interval: 10m0s
   retryInterval: 1m
   timeout: 5m
@@ -294,7 +294,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: minio
+    - name: garage
   interval: 10m0s
   retryInterval: 1m
   timeout: 5m
