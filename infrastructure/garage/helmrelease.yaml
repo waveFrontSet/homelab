@@ -98,23 +98,24 @@ spec:
                   pathType: Prefix
     resources:
       limits:
-        cpu: 100m
+        cpu: 500m
         memory: 1024Mi
       requests:
         cpu: 100m
         memory: 512Mi
     livenessProbe:
-      httpGet:
-        path: /health
+      tcpSocket:
         port: 3903
       initialDelaySeconds: 5
       periodSeconds: 30
+      timeoutSeconds: 5
     readinessProbe:
       httpGet:
         path: /health
         port: 3903
       initialDelaySeconds: 5
       periodSeconds: 30
+      timeoutSeconds: 5
     monitoring:
       metrics:
         enabled: true
