@@ -183,7 +183,7 @@ configMaps:
 
         queryLog:
           type: postgresql
-          logRetentionDays: 30
+          logRetentionDays: 7
           target: postgres://cnpg-pooler-rw.cnpg-cluster.svc:5432/blockydb
 service:
   svc:
