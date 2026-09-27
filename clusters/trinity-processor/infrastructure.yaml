@@ -176,6 +176,7 @@ spec:
   dependsOn:
     - name: cnpg
     - name: garage
+    - name: longhorn-extras
   interval: 10m0s
   retryInterval: 1m
   timeout: 5m

@@ -5,3 +5,4 @@ resources:
   - daily-snapshots.yaml
   - daily-backups.yaml
   - storageclass-no-backup.yaml
+  - storageclass-cnpg.yaml

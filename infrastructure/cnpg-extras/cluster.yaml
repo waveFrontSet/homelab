@@ -7,7 +7,7 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 30Gi
-    storageClass: longhorn
+    storageClass: longhorn-cnpg
   backup:
     barmanObjectStore:
       destinationPath: "s3://cnpg-backups/"
