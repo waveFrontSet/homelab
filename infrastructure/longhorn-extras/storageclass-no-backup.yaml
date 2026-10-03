@@ -12,7 +12,4 @@ parameters:
   fromBackup: ""
   fsType: "ext4"
   dataLocality: "disabled"
-  # Opt new volumes out of all recurring jobs. The "none" group has no
-  # RecurringJobs targeting it, which suppresses the implicit "default" group
-  # membership Longhorn would otherwise apply.
-  recurringJobSelector: '[{"name":"none","isGroup":true}]'
+  recurringJobSelector: '[{"name":"trim-only","isGroup":true}]'

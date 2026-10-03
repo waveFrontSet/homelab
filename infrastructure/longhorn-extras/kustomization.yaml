@@ -4,5 +4,6 @@ namespace: longhorn-system
 resources:
   - daily-snapshots.yaml
   - daily-backups.yaml
+  - daily-trim.yaml
   - storageclass-no-backup.yaml
   - storageclass-cnpg.yaml

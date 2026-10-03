@@ -1,0 +1,14 @@
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: daily-trim
+spec:
+  cron: "4 1 * * *" # daily at 01:04
+  task: "filesystem-trim"
+  groups:
+    - default
+    - cnpg
+    - trim-only
+  concurrency: 2
+  labels:
+    kind: daily
