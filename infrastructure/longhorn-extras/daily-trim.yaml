@@ -1,9 +1,9 @@
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
-  name: daily-trim
+  name: weekly-trim
 spec:
-  cron: "4 1 * * *" # daily at 01:04
+  cron: "4 1 * * 0" # weekly on sundays at 01:04
   task: "filesystem-trim"
   groups:
     - default
@@ -11,4 +11,4 @@ spec:
     - trim-only
   concurrency: 2
   labels:
-    kind: daily
+    kind: weekly
